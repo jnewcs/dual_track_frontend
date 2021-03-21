@@ -1,25 +1,24 @@
 {
   "files": {
-    "main.css": "/dual_track_frontend/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/dual_track_frontend/static/js/main.219e561c.chunk.js",
-    "main.js.map": "/dual_track_frontend/static/js/main.219e561c.chunk.js.map",
-    "runtime-main.js": "/dual_track_frontend/static/js/runtime-main.064f2a25.js",
-    "runtime-main.js.map": "/dual_track_frontend/static/js/runtime-main.064f2a25.js.map",
-    "static/js/2.eaf7dbe7.chunk.js": "/dual_track_frontend/static/js/2.eaf7dbe7.chunk.js",
-    "static/js/2.eaf7dbe7.chunk.js.map": "/dual_track_frontend/static/js/2.eaf7dbe7.chunk.js.map",
-    "static/js/3.933c0a55.chunk.js": "/dual_track_frontend/static/js/3.933c0a55.chunk.js",
-    "static/js/3.933c0a55.chunk.js.map": "/dual_track_frontend/static/js/3.933c0a55.chunk.js.map",
+    "main.css": "/dual_track_frontend/static/css/main.f26bec70.chunk.css",
+    "main.js": "/dual_track_frontend/static/js/main.abe778b9.chunk.js",
+    "main.js.map": "/dual_track_frontend/static/js/main.abe778b9.chunk.js.map",
+    "runtime-main.js": "/dual_track_frontend/static/js/runtime-main.14c140a5.js",
+    "runtime-main.js.map": "/dual_track_frontend/static/js/runtime-main.14c140a5.js.map",
+    "static/js/2.6bbfa178.chunk.js": "/dual_track_frontend/static/js/2.6bbfa178.chunk.js",
+    "static/js/2.6bbfa178.chunk.js.map": "/dual_track_frontend/static/js/2.6bbfa178.chunk.js.map",
+    "static/js/3.f3ed1523.chunk.js": "/dual_track_frontend/static/js/3.f3ed1523.chunk.js",
+    "static/js/3.f3ed1523.chunk.js.map": "/dual_track_frontend/static/js/3.f3ed1523.chunk.js.map",
     "index.html": "/dual_track_frontend/index.html",
     "service-worker.js": "/dual_track_frontend/service-worker.js",
     "service-worker.js.map": "/dual_track_frontend/service-worker.js.map",
-    "static/css/main.8c8b27cf.chunk.css.map": "/dual_track_frontend/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.eaf7dbe7.chunk.js.LICENSE.txt": "/dual_track_frontend/static/js/2.eaf7dbe7.chunk.js.LICENSE.txt",
-    "static/media/logo.103b5fa1.svg": "/dual_track_frontend/static/media/logo.103b5fa1.svg"
+    "static/css/main.f26bec70.chunk.css.map": "/dual_track_frontend/static/css/main.f26bec70.chunk.css.map",
+    "static/js/2.6bbfa178.chunk.js.LICENSE.txt": "/dual_track_frontend/static/js/2.6bbfa178.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.064f2a25.js",
-    "static/js/2.eaf7dbe7.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.219e561c.chunk.js"
+    "static/js/runtime-main.14c140a5.js",
+    "static/js/2.6bbfa178.chunk.js",
+    "static/css/main.f26bec70.chunk.css",
+    "static/js/main.abe778b9.chunk.js"
   ]
 }
