@@ -15,7 +15,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - uses: borales/actions-yarn@v2.30
+    - uses: borales/actions-yarn@v2.3.0
       with:
         cmd: install # will run `yarn install` command
     - name: Build page
