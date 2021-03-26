@@ -9,11 +9,11 @@ const Nav = () => {
           DualTrack
         </div>
 
-        <a role='button' className='navbar-burger' aria-label='menu' aria-expanded='false' data-target='navbar-menu'>
+        <div role='button' className='navbar-burger' aria-label='menu' aria-expanded='false' data-target='navbar-menu'>
           <span aria-hidden='true'></span>
           <span aria-hidden='true'></span>
           <span aria-hidden='true'></span>
-        </a>
+        </div>
       </div>
 
       <div id='navbar-menu' className='navbar-menu'>
@@ -24,12 +24,7 @@ const Nav = () => {
         <div className='navbar-end'>
           <div className='navbar-item'>
             <div className='buttons'>
-              <a className='button is-primary'>
-                <strong>Sign up</strong>
-              </a>
-              <a className='button is-light'>
-                Log in
-              </a>
+              <NavLink to='/login' className='navbar-item' activeClassName='is-active'>Login</NavLink>
             </div>
           </div>
         </div>
