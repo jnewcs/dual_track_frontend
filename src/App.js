@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.sass';
-import { Route, Switch } from 'react-router-dom';
-import Nav from './Nav';
+import { Switch } from 'react-router-dom';
+import Nav from './Components/Nav';
+import routes from './Config/routes.js';
+import AppRoute from './Components/AppRoute';
 
 function App() {
   return (
@@ -9,17 +11,13 @@ function App() {
       <Nav />
 
       <Switch>
-        <Route exact path='/'>
-          <div>
-            Home!
-          </div>
-        </Route>
-
-        <Route path='/about'>
-          <div>
-            About!
-          </div>
-        </Route>
+        {routes.map((route, index) => (
+          <AppRoute
+            exact
+            key={index}
+            {...route}
+          />
+        ))}
       </Switch>
     </div>
   );
