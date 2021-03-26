@@ -15,8 +15,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install Packages
-      run: yarn install
+    - uses: borales/actions-yarn@latest
+      with:
+        cmd: install # will run `yarn install` command
     - name: Build page
       run: npm run build
     - name: Deploy to gh-pages
