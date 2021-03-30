@@ -51,7 +51,7 @@ function registerValidSW(swUrl, config) {
     console.log('Refreshing to get new content: ', installingWorker);
     if (!installingWorker) return;
 
-    installingWorker.postMessage({ action: 'skipWaiting' });
+    installingWorker.postMessage({ action: 'SKIP_WAITING' });
   });
 
   let refreshing;
