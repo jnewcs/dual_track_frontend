@@ -1,11 +1,9 @@
 import React from 'react';
 
 const NotFound = () => {
- return (
-  <div className=''>
-    <h1>Page not found</h1>
-  </div>
- );
+  return (
+    <h1 className='is-size-1 mb-5'>Page not found</h1>
+  );
 }
 
 export default NotFound;
