@@ -10,7 +10,7 @@
 import { clientsClaim } from 'workbox-core';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { staticResourceCache, imageCache, offlineFallback } from 'workbox-recipes';
+import { staticResourceCache, imageCache } from 'workbox-recipes';
 
 clientsClaim();
 
@@ -22,7 +22,6 @@ precacheAndRoute(self.__WB_MANIFEST);
 
 staticResourceCache();
 imageCache();
-offlineFallback();
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
