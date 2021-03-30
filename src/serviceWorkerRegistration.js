@@ -10,6 +10,13 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
 
+// Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
+let installingWorker;
+document.getElementById('new-version-refresh-button').addEventListener('click', function() {
+  if (!installingWorker) return;
+
+  installingWorker.postMessage({ action: 'skipWaiting' });
+});
 
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
@@ -58,16 +65,10 @@ function registerValidSW(swUrl, config) {
     .register(swUrl)
     .then((registration) => {
       registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
+        installingWorker = registration.installing;
         if (installingWorker == null) {
           return;
         }
-
-        // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
-        // The click event on the notification to reload the page
-        document.getElementById('new-version-refresh-button').addEventListener('click', function() {
-          installingWorker.postMessage({ action: 'skipWaiting' });
-        });
 
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {

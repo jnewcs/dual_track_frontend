@@ -22,16 +22,6 @@ function App() {
           ))}
         </Switch>
       </div>
-
-      <div className='is-hidden' id='new-version-refresh-notification'>
-        <div className='notification is-info is-light is-flex is-align-items-center'>
-          A new version of DualTrack is available!
-
-          <div className='button is-light ml-2' id='new-version-refresh-button'>
-            REFRESH
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
