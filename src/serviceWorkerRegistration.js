@@ -10,13 +10,7 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
 
-// Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
 let installingWorker;
-document.getElementById('new-version-refresh-button').addEventListener('click', function() {
-  if (!installingWorker) return;
-
-  installingWorker.postMessage({ action: 'skipWaiting' });
-});
 
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
@@ -30,6 +24,13 @@ export function register(config) {
     }
 
     window.addEventListener('load', () => {
+      // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
+      document.getElementById('new-version-refresh-button').addEventListener('click', function() {
+        if (!installingWorker) return;
+
+        installingWorker.postMessage({ action: 'skipWaiting' });
+      });
+
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
