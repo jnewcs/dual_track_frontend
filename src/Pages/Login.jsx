@@ -21,7 +21,7 @@ const Login = ({ history }) => {
 
       history.push('/dashboard');
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -33,37 +33,35 @@ const Login = ({ history }) => {
         {errorMessage && <p className='notification is-danger'>{errorMessage}</p>}
 
         <form>
-          <div className=''>
-            <div className='field'>
-              <label className='label' htmlFor='email'>Email</label>
-              <div className='control'>
-                <input
-                  className='input'
-                  type='text'
-                  id='email'
-                  disabled={loading}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className='field'>
-              <label className='label' htmlFor='password'>Password</label>
-              <div className='control'>
-                <input
-                  className='input'
-                  type='password'
-                  id='password'
-                  disabled={loading}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
+          <div className='field'>
+            <label className='label' htmlFor='email'>Email</label>
+            <div className='control'>
+              <input
+                className='input'
+                type='text'
+                id='email'
+                disabled={loading}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
           </div>
 
-          <button className='button is-primary mt-5' onClick={handleLogin} disabled={loading}>Login</button>
+          <div className='field'>
+            <label className='label' htmlFor='password'>Password</label>
+            <div className='control'>
+              <input
+                className='input'
+                type='password'
+                id='password'
+                disabled={loading}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+
+        <button className='button is-primary mt-5' onClick={handleLogin} disabled={loading}>Login</button>
         </form>
       </div>
     </div>
