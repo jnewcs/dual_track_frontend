@@ -26,6 +26,7 @@ export function register(config) {
     window.addEventListener('load', () => {
       // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
       document.getElementById('new-version-refresh-button').addEventListener('click', function() {
+        console.log('Refreshing to get new content');
         if (!installingWorker) return;
 
         installingWorker.postMessage({ action: 'skipWaiting' });
@@ -57,6 +58,7 @@ function registerValidSW(swUrl, config) {
   let refreshing;
   // The event listener that is fired when the service worker updates
   navigator.serviceWorker.addEventListener('controllerchange', function () {
+    console.log('[ControllerChange] Reloading the page');
     if (refreshing) return;
     window.location.reload();
     refreshing = true;
