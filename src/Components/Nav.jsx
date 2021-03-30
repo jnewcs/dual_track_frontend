@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuthState } from '../Context';
 
 const Nav = () => {
+  const userDetails = useAuthState();
+
   return (
     <nav className='navbar is-light' role='navigation' aria-label='main navigation'>
       <div className='navbar-brand'>
@@ -18,7 +21,11 @@ const Nav = () => {
 
       <div id='navbar-menu' className='navbar-menu'>
         <div className='navbar-start'>
-          <NavLink to='/dashboard' className='navbar-item' activeClassName='is-active'>Dashboard</NavLink>
+          {Boolean(userDetails.email) && (
+            <>
+              <NavLink to='/dashboard' className='navbar-item' activeClassName='is-active'>Dashboard</NavLink>
+            </>
+          )}
         </div>
 
         <div className='navbar-end'>
