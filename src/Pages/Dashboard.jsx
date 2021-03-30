@@ -17,13 +17,15 @@ const Dashboard = ({ history }) => {
           Dashboard
         </h1>
 
-        <button className='' onClick={handleLogout}>
-          Logout
-        </button>
+        <div className='buttons'>
+          <button className='button is-default' onClick={handleLogout}>
+            Logout
+          </button>
 
-        <button className='' onClick={() => checkAuth(dispatch)}>
-          Check Auth
-        </button>
+          <button className='button is-default' onClick={() => checkAuth(dispatch)}>
+            Check Auth
+          </button>
+        </div>
       </div>
 
       <p>
