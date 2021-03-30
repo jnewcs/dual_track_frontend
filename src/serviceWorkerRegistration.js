@@ -48,7 +48,7 @@ function registerValidSW(swUrl, config) {
   let installingWorker;
   // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
   document.getElementById('new-version-refresh-button').addEventListener('click', function() {
-    console.log('Refreshing to get new content');
+    console.log('Refreshing to get new content: ', installingWorker);
     if (!installingWorker) return;
 
     installingWorker.postMessage({ action: 'skipWaiting' });
@@ -74,6 +74,7 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      console.log('[Registering SW]: ', registration);
       if (registration.waiting && registration.waiting.state === 'installed') {
         installingWorker = registration.waiting;
         showUpdateNotification();
