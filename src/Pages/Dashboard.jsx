@@ -13,7 +13,7 @@ const Dashboard = ({ history }) => {
   return (
     <div>
       <div className='' >
-        <h1>
+        <h1 className='is-size-1 mb-5'>
           Dashboard
         </h1>
 
