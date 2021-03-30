@@ -22,7 +22,6 @@ export async function loginUser(dispatch, loginPayload) {
       // Using `Access-Control-Expose-Headers: 'Authorization'` response header,
       // we are able to grab the Authorization token and save it in memory
       var token = response.headers.get('Authorization');
-      debugger
       dispatch({ type: 'LOGIN_SUCCESS', payload: { email: data.email, token: token } });
       localStorage.setItem('currentUserEmail', data.email);
       localStorage.setItem('currentUserToken', token);

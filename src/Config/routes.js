@@ -1,6 +1,7 @@
 import Dashboard from '../Pages/Dashboard';
 import Login from '../Pages/Login';
 import NotFound from '../Pages/NotFound';
+import Settings from '../Pages/Settings';
 
 const routes =[
   {
@@ -16,6 +17,11 @@ const routes =[
   {
     path:'/dashboard',
     component: Dashboard,
+    isPrivate: true
+  },
+  {
+    path:'/settings',
+    component: Settings,
     isPrivate: true
   },
   {

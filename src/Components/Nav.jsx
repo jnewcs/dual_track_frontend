@@ -24,6 +24,7 @@ const Nav = () => {
           {Boolean(userDetails.email) && (
             <>
               <NavLink to='/dashboard' className='navbar-item' activeClassName='is-active'>Dashboard</NavLink>
+              <NavLink to='/settings' className='navbar-item' activeClassName='is-active'>Settings</NavLink>
             </>
           )}
         </div>
