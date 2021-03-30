@@ -10,13 +10,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
 
-const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
-    // 127.0.0.0/8 are considered localhost for IPv4.
-    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
-);
 
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
@@ -53,6 +46,14 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
+  let refreshing;
+  // The event listener that is fired when the service worker updates
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (refreshing) return;
+    window.location.reload();
+    refreshing = true;
+  });
+
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
@@ -61,20 +62,21 @@ function registerValidSW(swUrl, config) {
         if (installingWorker == null) {
           return;
         }
+
+        // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
+        // The click event on the notification to reload the page
+        document.getElementById('new-version-refresh-button').addEventListener('click', function() {
+          installingWorker.postMessage({ action: 'skipWaiting' });
+        });
+
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              // At this point, the updated precached content has been fetched,
-              // but the previous service worker will still serve the older
-              // content until all client tabs are closed.
-              console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://cra.link/PWA.'
-              );
-
-              // Execute callback
-              if (config && config.onUpdate) {
-                config.onUpdate(registration);
+              // At this point, we know there is a new version ready so
+              // we show the notification to refresh the page to get it
+              let notification = document.getElementById('new-version-refresh-notification');
+              if (notification) {
+                notification.classList.remove('is-hidden');
               }
             } else {
               // At this point, everything has been precached.
@@ -95,6 +97,18 @@ function registerValidSW(swUrl, config) {
       console.error('Error during service worker registration:', error);
     });
 }
+
+//////////////////
+// LOCAL ENV ONLY!
+//////////////////
+
+const isLocalhost = Boolean(
+  window.location.hostname === 'localhost' ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === '[::1]' ||
+    // 127.0.0.0/8 are considered localhost for IPv4.
+    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+);
 
 function checkValidServiceWorker(swUrl, config) {
   // Check if the service worker can be found. If it can't reload the page.
