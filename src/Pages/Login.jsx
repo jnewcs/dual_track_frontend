@@ -38,6 +38,7 @@ const Login = ({ history }) => {
             <div className='control'>
               <input
                 className='input'
+                autocomplete='email'
                 type='text'
                 id='email'
                 disabled={loading}
@@ -52,6 +53,7 @@ const Login = ({ history }) => {
             <div className='control'>
               <input
                 className='input'
+                autocomplete='current-password'
                 type='password'
                 id='password'
                 disabled={loading}

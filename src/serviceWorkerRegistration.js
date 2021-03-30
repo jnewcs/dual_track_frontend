@@ -10,8 +10,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
 
-let installingWorker;
-
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -24,14 +22,6 @@ export function register(config) {
     }
 
     window.addEventListener('load', () => {
-      // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
-      document.getElementById('new-version-refresh-button').addEventListener('click', function() {
-        console.log('Refreshing to get new content');
-        if (!installingWorker) return;
-
-        installingWorker.postMessage({ action: 'skipWaiting' });
-      });
-
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
@@ -55,21 +45,43 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
+  let installingWorker;
+  // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
+  document.getElementById('new-version-refresh-button').addEventListener('click', function() {
+    console.log('Refreshing to get new content');
+    if (!installingWorker) return;
+
+    installingWorker.postMessage({ action: 'skipWaiting' });
+  });
+
   let refreshing;
   // The event listener that is fired when the service worker updates
   navigator.serviceWorker.addEventListener('controllerchange', function () {
     console.log('[ControllerChange] Reloading the page');
     if (refreshing) return;
+
     window.location.reload();
     refreshing = true;
   });
 
+  const showUpdateNotification = function() {
+    let notification = document.getElementById('new-version-refresh-notification');
+    if (notification) {
+      notification.classList.remove('is-hidden');
+    }
+  }
+
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      if (registration.waiting && registration.waiting.state === 'installed') {
+        installingWorker = registration.waiting;
+        showUpdateNotification();
+      }
+
       registration.onupdatefound = () => {
         installingWorker = registration.installing;
-        if (installingWorker == null) {
+        if (installingWorker === null) {
           return;
         }
 
@@ -78,10 +90,7 @@ function registerValidSW(swUrl, config) {
             if (navigator.serviceWorker.controller) {
               // At this point, we know there is a new version ready so
               // we show the notification to refresh the page to get it
-              let notification = document.getElementById('new-version-refresh-notification');
-              if (notification) {
-                notification.classList.remove('is-hidden');
-              }
+              showUpdateNotification();
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
