@@ -10,15 +10,17 @@ function App() {
     <div className='App'>
       <Nav />
 
-      <Switch>
-        {routes.map((route, index) => (
-          <AppRoute
-            exact
-            key={index}
-            {...route}
-          />
-        ))}
-      </Switch>
+      <div className='container is-widescreen pt-5'>
+        <Switch>
+          {routes.map((route, index) => (
+            <AppRoute
+              exact
+              key={index}
+              {...route}
+            />
+          ))}
+        </Switch>
+      </div>
     </div>
   );
 }
