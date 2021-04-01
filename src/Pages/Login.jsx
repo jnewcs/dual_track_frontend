@@ -23,14 +23,7 @@ const Login = ({ history }) => {
       }
     };
 
-    try {
-      let response = await loginUser(dispatch, payload);
-      if (!response.success) return;
-
-      history.push('/dashboard');
-    } catch (error) {
-      console.log(error);
-    }
+    loginUser(dispatch, payload);
   }
 
   return (
