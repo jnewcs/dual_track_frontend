@@ -19,6 +19,7 @@ export async function loginUser(dispatch, loginPayload) {
     dispatch({ type: 'REQUEST_LOGIN' });
     let response = await (process.env.NODE_ENV === 'development') ? mockedLoginCall() : fetch(`${ROOT_PROD_URL}/login`, requestOptions);
     let data = await response.json();
+    console.log('Response from login: ', data);
 
     // If the email attribute is present, the login call was a success
     if (data.email) {
@@ -35,6 +36,7 @@ export async function loginUser(dispatch, loginPayload) {
     dispatch({ type: 'LOGIN_ERROR', error: data.message || unhandledErrorMsg });
     return failureObject;
   } catch (error) {
+    console.log('Login error case: ', error);
     dispatch({ type: 'LOGIN_ERROR', error: unhandledErrorMsg });
     return failureObject;
   }
