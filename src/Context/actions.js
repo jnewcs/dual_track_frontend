@@ -53,7 +53,7 @@ export async function checkAuth(dispatch) {
 
   try {
     dispatch({ type: 'REQUEST_AUTH' });
-    let response = await fetch(`${ROOT_URL}/users/check`, requestOptions);
+    let response = await fetch(`${ROOT_PROD_URL}/users/check`, requestOptions);
     await response.json();
   } catch (error) {
     debugger
