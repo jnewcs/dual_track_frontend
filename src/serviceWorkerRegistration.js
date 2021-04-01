@@ -96,7 +96,7 @@ async function handleUpdate() {
 
     // https://dev.to/thepassle/on-pwa-update-patterns-4fgm
     // check to see if there is a current active service worker
-    const oldRegistration = await navigator.serviceWorker.getRegistration()
+    const oldRegistration = await navigator.serviceWorker.getRegistration();
     const oldSw = oldRegistration && oldRegistration.active;
     const olsSwState = oldSw && oldSw.state;
 
@@ -104,7 +104,7 @@ async function handleUpdate() {
       if (refreshing) return;
 
       // when the controllerchange event has fired, we get the new service worker
-      const newRegistration = (await navigator.serviceWorker.getRegistration())?.active?.state;
+      const newRegistration = await navigator.serviceWorker.getRegistration();
       const newSw = newRegistration && newRegistration.active;
       const newSwState = newSw && newSw.state;
 

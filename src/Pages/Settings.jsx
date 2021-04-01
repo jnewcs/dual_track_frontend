@@ -27,7 +27,10 @@ const Settings = () => {
   const refreshApp = function() {
     navigator.serviceWorker.getRegistration()
       .then(reg => {
-        reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        if (reg.waiting) {
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+
         // We assume it just works :)
         setAvailable(false);
       });
