@@ -1,6 +1,6 @@
 import { mockedLoginCall } from '../Config/mocks';
 
-const ROOT_URL = '//127.0.0.1:4000';
+const ROOT_PROD_URL = 'https://glacial-plateau-65219.herokuapp.com';
 const sucessObject = { success: true };
 const failureObject = { success: false };
 const unhandledErrorMsg = 'Unhandled error while logging in :(';
@@ -17,7 +17,7 @@ export async function loginUser(dispatch, loginPayload) {
 
   try {
     dispatch({ type: 'REQUEST_LOGIN' });
-    let response = await (process.env.NODE_ENV === 'development') ? mockedLoginCall() : fetch(`${ROOT_URL}/login`, requestOptions);
+    let response = await (process.env.NODE_ENV === 'development') ? mockedLoginCall() : fetch(`${ROOT_PROD_URL}/login`, requestOptions);
     let data = await response.json();
 
     // If the email attribute is present, the login call was a success
