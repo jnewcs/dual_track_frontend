@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loginUser, useAuthDispatch, useAuthState } from '../Context';
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState('');
+  const { email, loading, errorMessage } = useAuthState();
+
+  useEffect(() => {
+    if (email) {
+      history.push('/dashboard');
+    }
+  }, [email, history]);
+
+  const [localEmail, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useAuthDispatch();
@@ -11,7 +19,7 @@ const Login = ({ history }) => {
     let payload = {
       user: {
         password,
-        email
+        email: localEmail
       }
     };
 
@@ -25,8 +33,6 @@ const Login = ({ history }) => {
     }
   }
 
-  const { loading, errorMessage } = useAuthState();
-
   return (
     <div className='columns is-centered'>
       <div className='column is-half'>
@@ -38,11 +44,12 @@ const Login = ({ history }) => {
             <div className='control'>
               <input
                 className='input'
-                autocomplete='email'
+                autoComplete='email'
+                required
                 type='text'
                 id='email'
                 disabled={loading}
-                value={email}
+                value={localEmail}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -53,7 +60,8 @@ const Login = ({ history }) => {
             <div className='control'>
               <input
                 className='input'
-                autocomplete='current-password'
+                autoComplete='current-password'
+                required
                 type='password'
                 id='password'
                 disabled={loading}
@@ -63,7 +71,14 @@ const Login = ({ history }) => {
             </div>
           </div>
 
-        <button className='button is-primary mt-5' onClick={handleLogin} disabled={loading}>Login</button>
+          <button
+            type='submit'
+            className='button is-primary mt-5'
+            onClick={handleLogin}
+            disabled={loading}
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>

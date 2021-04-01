@@ -47,37 +47,16 @@ export function register(config) {
 function registerValidSW(swUrl, config) {
   let installingWorker;
   // Documentation: https://deanhume.com/displaying-a-new-version-available-progressive-web-app
-  document.getElementById('new-version-refresh-button').addEventListener('click', function() {
-    console.log('Refreshing to get new content: ', installingWorker);
-    if (!installingWorker) return;
 
-    installingWorker.postMessage({ type: 'SKIP_WAITING' });
-  });
-
-  let refreshing;
-  // The event listener that is fired when the service worker updates
-  navigator.serviceWorker.addEventListener('controllerchange', function () {
-    console.log('[ControllerChange] Reloading the page');
-    if (refreshing) return;
-
-    window.location.reload();
-    refreshing = true;
-  });
-
-  const showUpdateNotification = function() {
-    let notification = document.getElementById('new-version-refresh-notification');
-    if (notification) {
-      notification.classList.remove('is-hidden');
-    }
-  }
+  handleUpdate();
 
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
       console.log('[Registering SW]: ', registration);
       if (registration.waiting && registration.waiting.state === 'installed') {
-        installingWorker = registration.waiting;
-        showUpdateNotification();
+        // The service worker is installed and we just need to activate it
+        // Case handled by the settings page update interface
       }
 
       registration.onupdatefound = () => {
@@ -90,8 +69,7 @@ function registerValidSW(swUrl, config) {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, we know there is a new version ready so
-              // we show the notification to refresh the page to get it
-              showUpdateNotification();
+              // we can show a notification in the settings page to update
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
@@ -110,6 +88,33 @@ function registerValidSW(swUrl, config) {
     .catch((error) => {
       console.error('Error during service worker registration:', error);
     });
+}
+
+async function handleUpdate() {
+  if ('serviceWorker' in navigator) {
+    let refreshing;
+
+    // https://dev.to/thepassle/on-pwa-update-patterns-4fgm
+    // check to see if there is a current active service worker
+    const oldRegistration = await navigator.serviceWorker.getRegistration()
+    const oldSw = oldRegistration && oldRegistration.active;
+    const olsSwState = oldSw && oldSw.state;
+
+    navigator.serviceWorker.addEventListener('controllerchange', async () => {
+      if (refreshing) return;
+
+      // when the controllerchange event has fired, we get the new service worker
+      const newRegistration = (await navigator.serviceWorker.getRegistration())?.active?.state;
+      const newSw = newRegistration && newRegistration.active;
+      const newSwState = newSw && newSw.state;
+
+      // if there was already an old activated service worker, and a new activating service worker, do the reload
+      if(olsSwState === 'activated' && newSwState === 'activating') {
+        refreshing = true;
+        window.location.reload();
+      }
+    });
+  }
 }
 
 //////////////////

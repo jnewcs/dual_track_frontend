@@ -6,8 +6,8 @@ const Dashboard = ({ history }) => {
   const userDetails = useAuthState();
 
   const handleLogout = () => {
-    logout(dispatch) //call the logout action
-    history.push('/login') //navigate to logout page on logout
+    logout(dispatch); //call the logout action
+    history.push('/login'); //navigate to logout page on logout
   };
 
   return (

@@ -12,3 +12,10 @@ npm run deploy
 ```
 
 Otherwise, we can rely on our Github action script [.github/workflows/deploy.yml](.github/workflows/deploy.yml) whenever we merge into the default Github branch.
+
+## Problems
+When installing node modules for the first time in WSL2, I had to force clear the npm cache using this command:
+
+```
+npm cache clear --force
+```

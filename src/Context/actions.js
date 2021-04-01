@@ -1,6 +1,9 @@
+import { mockedLoginCall } from '../Config/mocks';
+
 const ROOT_URL = '//127.0.0.1:4000';
 const sucessObject = { success: true };
 const failureObject = { success: false };
+const unhandledErrorMsg = 'Unhandled error while logging in :(';
 
 export async function loginUser(dispatch, loginPayload) {
   const requestOptions = {
@@ -14,7 +17,7 @@ export async function loginUser(dispatch, loginPayload) {
 
   try {
     dispatch({ type: 'REQUEST_LOGIN' });
-    let response = await fetch(`${ROOT_URL}/login`, requestOptions);
+    let response = await (process.env.NODE_ENV === 'development') ? mockedLoginCall() : fetch(`${ROOT_URL}/login`, requestOptions);
     let data = await response.json();
 
     // If the email attribute is present, the login call was a success
@@ -29,10 +32,10 @@ export async function loginUser(dispatch, loginPayload) {
       return sucessObject;
     }
 
-    dispatch({ type: 'LOGIN_ERROR', error: data.message });
+    dispatch({ type: 'LOGIN_ERROR', error: data.message || unhandledErrorMsg });
     return failureObject;
   } catch (error) {
-    dispatch({ type: 'LOGIN_ERROR', error: 'Unhandled error while logging in :(' });
+    dispatch({ type: 'LOGIN_ERROR', error: unhandledErrorMsg });
     return failureObject;
   }
 }
