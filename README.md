@@ -13,9 +13,17 @@ npm run deploy
 
 Otherwise, we can rely on our Github action script [.github/workflows/deploy.yml](.github/workflows/deploy.yml) whenever we merge into the default Github branch.
 
+## Local API Testing
+We don't want to always be running our API server locally. To get around this, we are using [a server called MirageJS](https://miragejs.com/api/classes/model/) to mock the server and the responses. It does require more work to mock the server, but it should make development more stable.
+
 ## Problems
 When installing node modules for the first time in WSL2, I had to force clear the npm cache using this command:
 
 ```
 npm cache clear --force
 ```
+
+## Dependencies
+We are using a few libraries to make our lives easier:
+
+1. To make HTTP requests (GET, POST, etc.), we are using [superagent](https://www.npmjs.com/package/superagent)
