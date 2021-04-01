@@ -28,6 +28,8 @@ const Settings = () => {
     navigator.serviceWorker.getRegistration()
       .then(reg => {
         reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        // We assume it just works :)
+        setAvailable(false);
       });
   }
 
