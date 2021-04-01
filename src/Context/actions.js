@@ -18,8 +18,9 @@ export async function loginUser(dispatch, loginPayload) {
   try {
     dispatch({ type: 'REQUEST_LOGIN' });
     let response = await (process.env.NODE_ENV === 'development') ? mockedLoginCall() : fetch(`${ROOT_PROD_URL}/login`, requestOptions);
+    console.log('Response from login: ', response);
     let data = await response.json();
-    console.log('Response from login: ', data);
+    console.log('Data from login: ', data);
 
     // If the email attribute is present, the login call was a success
     if (data.email) {
