@@ -28,10 +28,12 @@ const Settings = () => {
     navigator.serviceWorker.getRegistration()
       .then(reg => {
         if (reg.waiting) {
+          console.log('[Posting message from Update interface]');
           reg.waiting.postMessage({ type: 'SKIP_WAITING' });
         }
 
-        // We assume it just works :)
+        console.log('[Setting update available to false]');
+        // We assume that the SW get's the request and claims
         setAvailable(false);
       });
   }

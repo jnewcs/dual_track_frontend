@@ -109,7 +109,7 @@ async function handleUpdate() {
       const newSwState = newSw && newSw.state;
 
       // if there was already an old activated service worker, and a new activating service worker, do the reload
-      if(olsSwState === 'activated' && newSwState === 'activating') {
+      if (olsSwState === 'activated' && newSwState === 'activating') {
         refreshing = true;
         window.location.reload();
       }
