@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { satisfies } from 'es-semver';
 import { addPwaUpdateListener } from 'pwa-helper-components';
-import 'pwa-helper-components/pwa-install-button.js';
+import InstallApp from './InstallApp';
 
 const Settings = () => {
   const [ changelog, setChangelog] = useState(null);
@@ -72,20 +72,7 @@ const Settings = () => {
 
       <hr />
 
-      <pwa-install-button>
-        <p>
-          This app is a PWA (progressive web app) that can be installed directly to your homescreen or desktop. It updates like other apps and provides a native like experience.
-        </p>
-        <ul>
-          <li>Fast</li>
-          <li>Reliable</li>
-          <li>Offline First</li>
-        </ul>
-
-        <button className='button is-primary'>
-          Install!
-        </button>
-      </pwa-install-button>
+      <InstallApp />
 
       {updateAvailable && (
         <>
