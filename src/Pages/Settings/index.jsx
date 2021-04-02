@@ -72,11 +72,6 @@ const Settings = () => {
 
       <hr />
 
-      <pwa-install-button>
-        <button className='button is-primary'>
-          Install!
-        </button>
-      </pwa-install-button>
       <InstallAppExplanation />
 
       {updateAvailable && (
