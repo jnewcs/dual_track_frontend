@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/dual_track_frontend/static/css/main.6835eed3.chunk.css",
-    "main.js": "/dual_track_frontend/static/js/main.e5d5e89a.chunk.js",
-    "main.js.map": "/dual_track_frontend/static/js/main.e5d5e89a.chunk.js.map",
+    "main.js": "/dual_track_frontend/static/js/main.b4ae0845.chunk.js",
+    "main.js.map": "/dual_track_frontend/static/js/main.b4ae0845.chunk.js.map",
     "runtime-main.js": "/dual_track_frontend/static/js/runtime-main.4c3205f8.js",
     "runtime-main.js.map": "/dual_track_frontend/static/js/runtime-main.4c3205f8.js.map",
     "static/js/2.dd795f08.chunk.js": "/dual_track_frontend/static/js/2.dd795f08.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.4c3205f8.js",
     "static/js/2.dd795f08.chunk.js",
     "static/css/main.6835eed3.chunk.css",
-    "static/js/main.e5d5e89a.chunk.js"
+    "static/js/main.b4ae0845.chunk.js"
   ]
 }
