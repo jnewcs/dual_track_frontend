@@ -5,6 +5,7 @@ const InstallAppExplanation = () => {
   const [ hideExplanation, hide ] = useState(true); 
   useEffect(() => {
     const pwaInstallButton = document.querySelector('pwa-install-button');
+    console.log('pwaInstallButton: ', pwaInstallButton);
 
     // The app is installable
     if (pwaInstallButton) {
