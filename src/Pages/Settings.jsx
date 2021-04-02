@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { satisfies } from 'es-semver';
 import { addPwaUpdateListener } from 'pwa-helper-components';
+import 'pwa-helper-components/pwa-install-button.js';
 
 const Settings = () => {
   const [ changelog, setChangelog] = useState(null);
@@ -33,7 +34,7 @@ const Settings = () => {
         }
 
         console.log('[Setting update available to false]');
-        // We assume that the SW get's the request and claims
+        // We assume that the SW get's he request and claims
         setAvailable(false);
       });
   }
@@ -70,6 +71,21 @@ const Settings = () => {
       </div>
 
       <hr />
+
+      <pwa-install-button>
+        <p>
+          This app is a PWA (progressive web app) that can be installed directly to your homescreen or desktop. It updates like other apps and provides a native like experience.
+        </p>
+        <ul>
+          <li>Fast</li>
+          <li>Reliable</li>
+          <li>Offline First</li>
+        </ul>
+
+        <button className='button is-primary'>
+          Install!
+        </button>
+      </pwa-install-button>
 
       {updateAvailable && (
         <>

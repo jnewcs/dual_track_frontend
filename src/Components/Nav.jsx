@@ -33,7 +33,7 @@ const Nav = () => {
           <div className='navbar-item'>
             <div className='buttons'>
               {!Boolean(userDetails.email) && (
-                <NavLink to='/login' className='button is-light' activeClassName='is-active'>Login</NavLink>
+                <NavLink to='/entrance' className='button is-light' activeClassName='is-active'>Login</NavLink>
               )}
             </div>
           </div>

@@ -16,6 +16,17 @@ Otherwise, we can rely on our Github action script [.github/workflows/deploy.yml
 ## Local API Testing
 We don't want to always be running our API server locally. To get around this, we are using [a server called MirageJS](https://miragejs.com/api/classes/model/) to mock the server and the responses. It does require more work to mock the server, but it should make development more stable.
 
+## Running in Production Mode Locally
+To fully test PWA features, it is necessary to run in production mode locally. To do so, follow [this guide](https://create-react-app.dev/docs/deployment#static-server):
+
+```
+<!-- Remove the homepage attribute from the package.json then follow these steps -->
+npm run build
+
+npm install -g serve
+serve -s build
+```
+
 ## Problems
 When installing node modules for the first time in WSL2, I had to force clear the npm cache using this command:
 

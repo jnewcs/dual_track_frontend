@@ -8,13 +8,13 @@ import { AuthProvider } from './Context';
 import { makeServer } from './Config/mockServer';
 
 if (process.env.NODE_ENV === 'development') {
-  makeServer({ environment: 'development' })
+  makeServer({ environment: 'development' });
 }
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <HashRouter>
+      <HashRouter hashType='noslash'>
         <App />
       </HashRouter>
     </AuthProvider>

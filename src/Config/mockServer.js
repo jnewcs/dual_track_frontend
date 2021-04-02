@@ -8,10 +8,10 @@ export function makeServer({ environment = 'test' } = {}) {
       user: Model
     },
     seeds(server) {
-      server.create('user', { name: 'Bob', email: 'j.newcomb@outlook.com' })
+      server.create('user', { name: 'Bob', email: 'j.newcomb@outlook.com' });
     },
     routes() {
-      this.urlPrefix = 'https://glacial-plateau-65219.herokuapp.com'
+      this.urlPrefix = 'https://glacial-plateau-65219.herokuapp.com';
 
       this.post('/login', (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
@@ -21,7 +21,7 @@ export function makeServer({ environment = 'test' } = {}) {
         }
 
         return new Response(401, {}, { sucess: false, message: 'Email was not found' });
-      })
+      });
     },
   })
 

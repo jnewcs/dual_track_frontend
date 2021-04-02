@@ -6,18 +6,18 @@ const sucessObject = { success: true };
 const failureObject = { success: false };
 const unhandledErrorMsg = 'Unhandled error while logging in :(';
 
-export function loginUser(dispatch, loginPayload) {
+export function loginUser(dispatch, payload) {
   dispatch({ type: 'REQUEST_LOGIN' });
 
   return superagent
     .post(`${ROOT_PROD_URL}/login`)
-    .send(loginPayload) // sends a JSON post body
+    .send(payload) // sends a JSON post body
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/json')
     .end((err, res) => {
       console.log('Login Request: ', err, res);
 
-      const email = res.body.email;
+      const email = res?.body?.email;
       if (!err && email) {
         // Using `Access-Control-Expose-Headers: 'Authorization'` response header,
         // we are able to grab the Authorization token and save it in memory
@@ -31,7 +31,7 @@ export function loginUser(dispatch, loginPayload) {
         return sucessObject;
       }
 
-      dispatch({ type: 'LOGIN_ERROR', error: res.body.message || unhandledErrorMsg });
+      dispatch({ type: 'LOGIN_ERROR', error: res?.body?.message || unhandledErrorMsg });
       return failureObject;
     });
 }

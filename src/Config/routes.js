@@ -1,17 +1,17 @@
 import Dashboard from '../Pages/Dashboard';
-import Login from '../Pages/Login';
+import Entrance from '../Pages/Entrance';
 import NotFound from '../Pages/NotFound';
 import Settings from '../Pages/Settings';
 
 const routes =[
   {
     path:'/',
-    component: Login,
+    component: Entrance,
     isPrivate: false
   },
   {
-    path:'/login',
-    component: Login,
+    path:'/entrance',
+    component: Entrance,
     isPrivate: false
   },
   {
