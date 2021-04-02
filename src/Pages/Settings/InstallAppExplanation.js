@@ -23,7 +23,7 @@ const InstallAppExplanation = () => {
   if (hideExplanation) return null;
 
   return (
-    <div className='box'>
+    <div className='box mt-5 content'>
       <p>
         This app is a PWA (progressive web app) that can be installed directly to your homescreen or desktop. It updates like other apps and provides a native like experience.
       </p>
