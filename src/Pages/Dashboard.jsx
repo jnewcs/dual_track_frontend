@@ -23,7 +23,7 @@ const Dashboard = ({ history }) => {
           </button>
 
           <button className='button is-default' onClick={() => checkAuth(dispatch)}>
-            Check Auth
+            Check Auth :)
           </button>
         </div>
       </div>
