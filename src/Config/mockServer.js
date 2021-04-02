@@ -18,11 +18,20 @@ export function makeServer({ environment = 'test' } = {}) {
         const attrs = JSON.parse(request.requestBody);
         const user = schema.users.findBy({ email: attrs.user.email });
         if (user) {
-          return new Response(200, { Authorization: 'Bearer 5G3144t3g' }, user.attrs);
+          return new Response(200, { 'Authorization': 'Bearer 5G3144t3g' }, user.attrs);
         }
 
         return new Response(401, {}, { sucess: false, message: 'Email was not found' });
       });
+
+      this.get('/users/check', (_schema, request) => {
+        const headers = request.requestHeaders;
+        if (!!headers.Authorization) {
+          return new Response(200, {}, {});
+        }
+
+        return new Response(401, {}, { sucess: false, message: 'Not authorized' });
+    });
     },
   })
 

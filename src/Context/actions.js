@@ -21,7 +21,7 @@ export function loginUser(dispatch, payload) {
       if (!err && email) {
         // Using `Access-Control-Expose-Headers: 'Authorization'` response header,
         // we are able to grab the Authorization token and save it in memory
-        var token = res.headers['Authorization'];
+        var token = res.headers['Authorization'] || res.headers['authorization'];
         dispatch({ type: 'LOGIN_SUCCESS', payload: { email: email, token: token } });
         localStorage.setItem('currentUserEmail', email);
         localStorage.setItem('currentUserToken', token);
@@ -36,24 +36,16 @@ export function loginUser(dispatch, payload) {
     });
 }
 
-export async function checkAuth(dispatch) {
+export async function checkAuth(_dispatch) {
   const token = localStorage.getItem('currentUserToken') || '';
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': token  // Stored in the format: `Bearer ${token}`
-    }
-  };
-
-  try {
-    dispatch({ type: 'REQUEST_AUTH' });
-    let response = await fetch(`${ROOT_PROD_URL}/users/check`, requestOptions);
-    await response.json();
-  } catch (error) {
-    debugger
-  }
+  return superagent
+    .get(`${ROOT_PROD_URL}/users/check`)
+    .set('Content-Type', 'application/json')
+    .set('Accept', 'application/json')
+    .set('Authorization', token)
+    .then(res => {
+      console.log('Check Auth Request: ', res);
+    });
 }
 
 export async function logout(dispatch) {
