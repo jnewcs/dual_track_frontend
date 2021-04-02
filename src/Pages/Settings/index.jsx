@@ -79,7 +79,7 @@ const Settings = () => {
 
       {updateAvailable && (
         <>
-          <div id='new-version-refresh-notification' className='mb-5'>
+          <div id='new-version-refresh-notification' className='mb-5 mt-5'>
             <div className='notification is-info is-light is-flex is-align-items-center'>
               A new version of DualTrack is available
 
