@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { satisfies } from 'es-semver';
-import { addPwaUpdateListener } from 'pwa-helper-components';
 import InstallAppExplanation from './InstallAppExplanation';
 import { useAuthDispatch, useAuthState } from '../../Context';
 
 const Settings = () => {
   const [ changelog, setChangelog] = useState(null);
   const dispatch = useAuthDispatch();
-
-  addPwaUpdateListener((isUpdateAvailable) => {
-    dispatch({ type: 'TOGGLE_UPDATE_AVAILABLE', updateAvailable: isUpdateAvailable });
-  });
 
   useEffect(() => {
     const path = document.getElementById('changelog-path').dataset.path;

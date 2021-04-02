@@ -11,6 +11,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', { name: 'Bob', email: 'j.newcomb@outlook.com' });
     },
     routes() {
+      this.passthrough('/dual_track_frontend/CHANGELOG.json');
       this.urlPrefix = 'https://glacial-plateau-65219.herokuapp.com';
 
       this.post('/login', (schema, request) => {
