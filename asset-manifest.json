@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/dual_track_frontend/static/css/main.e08f0554.chunk.css",
-    "main.js": "/dual_track_frontend/static/js/main.c47a1fc1.chunk.js",
-    "main.js.map": "/dual_track_frontend/static/js/main.c47a1fc1.chunk.js.map",
+    "main.css": "/dual_track_frontend/static/css/main.1dd3f53b.chunk.css",
+    "main.js": "/dual_track_frontend/static/js/main.fb19d0f8.chunk.js",
+    "main.js.map": "/dual_track_frontend/static/js/main.fb19d0f8.chunk.js.map",
     "runtime-main.js": "/dual_track_frontend/static/js/runtime-main.4c3205f8.js",
     "runtime-main.js.map": "/dual_track_frontend/static/js/runtime-main.4c3205f8.js.map",
     "static/js/2.7ce23bf0.chunk.js": "/dual_track_frontend/static/js/2.7ce23bf0.chunk.js",
@@ -12,13 +12,13 @@
     "index.html": "/dual_track_frontend/index.html",
     "service-worker.js": "/dual_track_frontend/service-worker.js",
     "service-worker.js.map": "/dual_track_frontend/service-worker.js.map",
-    "static/css/main.e08f0554.chunk.css.map": "/dual_track_frontend/static/css/main.e08f0554.chunk.css.map",
+    "static/css/main.1dd3f53b.chunk.css.map": "/dual_track_frontend/static/css/main.1dd3f53b.chunk.css.map",
     "static/js/2.7ce23bf0.chunk.js.LICENSE.txt": "/dual_track_frontend/static/js/2.7ce23bf0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4c3205f8.js",
     "static/js/2.7ce23bf0.chunk.js",
-    "static/css/main.e08f0554.chunk.css",
-    "static/js/main.c47a1fc1.chunk.js"
+    "static/css/main.1dd3f53b.chunk.css",
+    "static/js/main.fb19d0f8.chunk.js"
   ]
 }
