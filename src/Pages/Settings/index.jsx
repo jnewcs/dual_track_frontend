@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { satisfies } from 'es-semver';
 import { addPwaUpdateListener } from 'pwa-helper-components';
-import InstallApp from './InstallApp';
+import InstallAppExplanation from './InstallAppExplanation';
 
 const Settings = () => {
   const [ changelog, setChangelog] = useState(null);
@@ -72,7 +72,12 @@ const Settings = () => {
 
       <hr />
 
-      <InstallApp />
+      <pwa-install-button>
+        <button className='button is-primary'>
+          Install!
+        </button>
+      </pwa-install-button>
+      <InstallAppExplanation />
 
       {updateAvailable && (
         <>
