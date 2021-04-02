@@ -1,3 +1,10 @@
 .unclickable {
   pointer-events: none;
 }
+
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}

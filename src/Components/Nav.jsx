@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuthState } from '../Context';
 
 const Nav = () => {
-  const userDetails = useAuthState();
+  const { email, updateAvailable } = useAuthState();
 
   return (
     <nav className='navbar is-light' role='navigation' aria-label='main navigation'>
@@ -21,10 +21,13 @@ const Nav = () => {
 
       <div id='navbar-menu' className='navbar-menu'>
         <div className='navbar-start'>
-          {Boolean(userDetails.email) && (
+          {Boolean(email) && (
             <>
               <NavLink to='/dashboard' className='navbar-item' activeClassName='is-active'>Dashboard</NavLink>
-              <NavLink to='/settings' className='navbar-item' activeClassName='is-active'>Settings</NavLink>
+              <NavLink to='/settings' className='navbar-item' activeClassName='is-active'>
+                Settings
+                {updateAvailable && <div className='dot ml-1 has-background-primary'></div>}
+              </NavLink>
             </>
           )}
         </div>
@@ -32,7 +35,7 @@ const Nav = () => {
         <div className='navbar-end'>
           <div className='navbar-item'>
             <div className='buttons'>
-              {!Boolean(userDetails.email) && (
+              {!Boolean(email) && (
                 <NavLink to='/entrance' className='button is-light' activeClassName='is-active'>Login</NavLink>
               )}
             </div>
