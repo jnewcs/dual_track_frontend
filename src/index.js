@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <HashRouter hashType='noslash'>
+      <HashRouter hashType='slash'>
         <App />
       </HashRouter>
     </AuthProvider>
