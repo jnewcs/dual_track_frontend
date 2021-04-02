@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import 'pwa-helper-components/pwa-install-button.js';
 
 const InstallApp = () => {
@@ -6,18 +6,18 @@ const InstallApp = () => {
 
   // The app is installable
   pwaInstallButton.addEventListener('pwa-installable', (event) => {
-    console.log(event.detail); // true
+    console.log(event); // true
   });
 
   // User accepted the prompt
   pwaInstallButton.addEventListener('pwa-installed', (event) => {
-    console.log(event.detail); // true
+    console.log(event); // true
     // You may want to use this event to send some data to your analytics
   });
 
   // If the user dismisses the prompt
   pwaInstallButton.addEventListener('pwa-installed', (event) => {
-    console.log(event.detail); // false
+    console.log(event); // false
   });
 
   return (
