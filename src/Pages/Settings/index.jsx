@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { satisfies } from 'es-semver';
 import { addPwaUpdateListener } from 'pwa-helper-components';
 import InstallAppExplanation from './InstallAppExplanation';
+import { useAuthDispatch, useAuthState } from '../../Context';
 
 const Settings = () => {
   const [ changelog, setChangelog] = useState(null);
-  const [ updateAvailable, setAvailable] = useState(false);
+  const dispatch = useAuthDispatch();
 
-  addPwaUpdateListener((updateAvailable) => {
-    setAvailable(updateAvailable);
+  addPwaUpdateListener((isUpdateAvailable) => {
+    dispatch({ type: 'TOGGLE_UPDATE_AVAILABLE', updateAvailable: isUpdateAvailable });
   });
 
   useEffect(() => {
@@ -35,9 +36,11 @@ const Settings = () => {
 
         console.log('[Setting update available to false]');
         // We assume that the SW get's he request and claims
-        setAvailable(false);
+        dispatch({ type: 'TOGGLE_UPDATE_AVAILABLE', updateAvailable: false });
       });
-  }
+  };
+
+  const { updateAvailable } = useAuthState();
 
   return (
     <>
