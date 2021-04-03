@@ -48,11 +48,11 @@ const Entrance = ({ history }) => {
 
         <div className='tabs is-medium'>
           <ul>
-            <li className={activeTab === 'login' && 'is-active'}>
+            <li className={activeTab === 'login' ? 'is-active' : undefined}>
               {/* eslint-disable-next-line */}
               <a role='menuitem' disabled={loading} onClick={() => switchTab('login')}>Login</a>
             </li>
-            <li role='menuitem' className={activeTab === 'register' && 'is-active'}>
+            <li role='menuitem' className={activeTab === 'register' ? 'is-active' : undefined}>
               {/* eslint-disable-next-line */}
               <a disabled={loading} onClick={() => switchTab('register')}>Register</a>
             </li>

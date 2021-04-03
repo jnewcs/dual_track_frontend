@@ -15,7 +15,7 @@ export function loginUser(dispatch, payload) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/json')
     .end((err, res) => {
-      console.log('Login Request: ', err, res);
+      if (res.statusCode === 401) return logout(dispatch);
 
       const email = res?.body?.email;
       if (!err && email) {
@@ -36,15 +36,15 @@ export function loginUser(dispatch, payload) {
     });
 }
 
-export async function checkAuth(_dispatch) {
+export async function checkAuth(dispatch) {
   const token = localStorage.getItem('currentUserToken') || '';
   return superagent
     .get(`${ROOT_PROD_URL}/users/check`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/json')
     .set('Authorization', token)
-    .then(res => {
-      console.log('Check Auth Request: ', res);
+    .end((_err, res) => {
+      if (res.statusCode === 401) return logout(dispatch);
     });
 }
 

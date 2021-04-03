@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { logout, checkAuth, useAuthDispatch, useAuthState } from '../Context';
+import Pusher from 'pusher-js/with-encryption';
 
 const Dashboard = ({ history }) => {
   const dispatch = useAuthDispatch();
@@ -9,6 +10,20 @@ const Dashboard = ({ history }) => {
     logout(dispatch); // call the logout action
     history.push('/entrance'); // navigate to logout page on logout
   };
+
+  useEffect(() => {
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = process.env.NODE_ENV === 'development';
+
+    var pusher = new Pusher('5803771fe6b95d4fe483', {
+      cluster: 'us3'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(JSON.stringify(data));
+    });
+  }, []);
 
   return (
     <div>
