@@ -4,6 +4,7 @@ import Form from './Form';
 
 const Entrance = ({ history }) => {
   const { email, loading, errorMessage } = useAuthState();
+  const dispatch = useAuthDispatch();
 
   useEffect(() => {
     if (email) {
@@ -15,9 +16,8 @@ const Entrance = ({ history }) => {
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState('login');
 
-  const dispatch = useAuthDispatch();
   const handleLogin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let payload = {
       user: {
         password,
@@ -25,7 +25,7 @@ const Entrance = ({ history }) => {
       }
     };
 
-    loginUser(dispatch, payload);
+    loginUser(dispatch, history, payload);
   }
   const sharedProps = {
     localEmail,

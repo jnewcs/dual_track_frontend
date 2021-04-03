@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router-dom';
 const superagent = require('superagent');
 
 const ROOT_PROD_URL = 'https://glacial-plateau-65219.herokuapp.com';
@@ -6,7 +5,7 @@ const sucessObject = { success: true };
 const failureObject = { success: false };
 const unhandledErrorMsg = 'Unhandled error while logging in :(';
 
-export function loginUser(dispatch, payload) {
+export function loginUser(dispatch, history, payload) {
   dispatch({ type: 'REQUEST_LOGIN' });
 
   return superagent
@@ -15,8 +14,6 @@ export function loginUser(dispatch, payload) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/json')
     .end((err, res) => {
-      if (res.statusCode === 401) return logout(dispatch);
-
       const email = res?.body?.email;
       if (!err && email) {
         // Using `Access-Control-Expose-Headers: 'Authorization'` response header,
@@ -25,7 +22,10 @@ export function loginUser(dispatch, payload) {
         dispatch({ type: 'LOGIN_SUCCESS', payload: { email: email, token: token } });
         localStorage.setItem('currentUserEmail', email);
         localStorage.setItem('currentUserToken', token);
-        let history = useHistory();
+
+        dispatch({ type: 'TOGGLE_NOTIFICATION', notification: {
+          text: 'Logged in successfully!'
+        }});
         history.push('/dashboard');
 
         return sucessObject;

@@ -2,11 +2,13 @@ import React from 'react';
 import './App.scss';
 import './Styles/General.css';
 import { Switch } from 'react-router-dom';
-import Nav from './Components/Nav';
-import routes from './Config/routes.js';
-import AppRoute from './Components/AppRoute';
 import { addPwaUpdateListener } from 'pwa-helper-components';
+
+import routes from './Config/routes.js';
 import { useAuthDispatch } from './Context';
+import AppRoute from './Components/AppRoute';
+import Nav from './Components/Nav';
+import NotificationContainer from './Components/NotificationContainer';
 
 function App() {
   const dispatch = useAuthDispatch();
@@ -15,21 +17,32 @@ function App() {
   });
 
   return (
-    <div className='app-container'>
-      <Nav />
+    <>
+      <div id='app-container'>
+        <Nav />
+        <NotificationContainer />
 
-      <div className='container is-widescreen pt-5'>
-        <Switch>
-          {routes.map((route, index) => (
-            <AppRoute
-              exact
-              key={index}
-              {...route}
-            />
-          ))}
-        </Switch>
+        <div className='container is-widescreen pt-5'>
+          <Switch>
+            {routes.map((route, index) => (
+              <AppRoute
+                exact
+                key={index}
+                {...route}
+              />
+            ))}
+          </Switch>
+        </div>
       </div>
-    </div>
+
+      <footer className='footer has-background-white-ter'>
+        <div className='content has-text-centered pt-3 pb-3'>
+          <div>
+            Icons made by <a href='https://www.flaticon.com/authors/srip' title='srip'>srip</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
 

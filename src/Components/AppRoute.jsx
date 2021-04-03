@@ -3,12 +3,12 @@ import { Redirect, Route } from 'react-router-dom';
 import { useAuthState } from '../Context';
 
 const AppRoute = ({ component: Component, path, isPrivate, ...rest }) => {
-  const userDetails = useAuthState();
+  const { email } = useAuthState();
   return (
     <Route
       path={path}
       render={props =>
-        isPrivate && !Boolean(userDetails.email) ? (
+        isPrivate && !Boolean(email) ? (
           <Redirect to={{ pathname: '/entrance' }} />
         ) : (
           <Component {...props} />

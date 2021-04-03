@@ -57,6 +57,7 @@ function registerValidSW(swUrl, config) {
       if (registration.waiting && registration.waiting.state === 'installed') {
         // The service worker is installed and we just need to activate it
         // Case handled by the settings page update interface
+        // Uncomment the following line to force an update
       }
 
       registration.onupdatefound = () => {
@@ -68,8 +69,8 @@ function registerValidSW(swUrl, config) {
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              // At this point, we know there is a new version ready so
-              // we can show a notification in the settings page to update
+              // At this point, we know there is a new version ready
+              // Uncomment the following line to force an update
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a

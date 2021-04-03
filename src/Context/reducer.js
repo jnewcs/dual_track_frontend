@@ -5,6 +5,7 @@ export const initialState = {
   email: '' || email,
   token: '' || token,
   loading: false,
+  notification: null,
   errorMessage: null,
   updateAvailable: false
 };
@@ -49,6 +50,11 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         updateAvailable: action.updateAvailable
+      };
+    case 'TOGGLE_NOTIFICATION':
+      return {
+        ...initialState,
+        notification: action.notification
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);

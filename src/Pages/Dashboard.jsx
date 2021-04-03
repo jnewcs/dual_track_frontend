@@ -12,17 +12,22 @@ const Dashboard = ({ history }) => {
   };
 
   useEffect(() => {
-    // Enable pusher logging - don't include this in production
+    // Enable pusher logging - not enabled in any environment except local
     Pusher.logToConsole = process.env.NODE_ENV === 'development';
 
-    var pusher = new Pusher('5803771fe6b95d4fe483', {
-      cluster: 'us3'
+    var pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
+      cluster: process.env.REACT_APP_PUSHER_CLUSTER
     });
 
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function(data) {
       alert(JSON.stringify(data));
     });
+
+    return () => {
+      pusher.unsubscribe('my-channel');
+      channel.unbind('new-comment');
+    };
   }, []);
 
   return (

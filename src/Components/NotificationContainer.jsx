@@ -1,0 +1,25 @@
+import React from 'react';
+import { useAuthDispatch, useAuthState } from '../Context';
+
+const NotificationContainer = () => {
+  const dispatch = useAuthDispatch();
+  const { notification } = useAuthState();
+  if (notification === null) return null;
+
+  const HandleClick = () => {
+    dispatch({ type: 'TOGGLE_NOTIFICATION', notification: null });
+  }
+
+  return (
+    <div className='notification is-info is-light is-flex is-align-items-center'>
+      <div
+        className='delete is-clickable is-size-3'
+        onClick={HandleClick}
+        dangerouslySetInnerHTML={{ __html: '&#215;' }}
+      />
+      {notification.text}
+    </div>
+  );
+}
+
+export default NotificationContainer;
