@@ -11,7 +11,7 @@ const NotificationContainer = () => {
   }
 
   return (
-    <div className='notification is-info is-light is-flex is-align-items-center'>
+    <div className={`notification is-${notification.type} is-light is-flex is-align-items-center`}>
       <div
         className='delete is-clickable is-size-3'
         onClick={HandleClick}

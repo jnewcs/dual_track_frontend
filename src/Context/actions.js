@@ -24,7 +24,8 @@ export function loginUser(dispatch, history, payload) {
         localStorage.setItem('currentUserToken', token);
 
         dispatch({ type: 'TOGGLE_NOTIFICATION', notification: {
-          text: 'Logged in successfully!'
+          text: 'Logged in successfully!',
+          type: 'info'
         }});
         history.push('/dashboard');
 
@@ -44,8 +45,19 @@ export async function checkAuth(dispatch) {
     .set('Accept', 'application/json')
     .set('Authorization', token)
     .end((_err, res) => {
-      if (res.statusCode === 401) return logout(dispatch);
+      if (needsLoginToProceed(res, dispatch)) return;
     });
+}
+
+function needsLoginToProceed(res, dispatch) {
+  if (res.statusCode !== 401) return false;
+
+  logout(dispatch);
+  dispatch({ type: 'TOGGLE_NOTIFICATION', notification: {
+    text: 'No longer signed in :( Please login to continue',
+    type: 'warning'
+  }});
+  return true;
 }
 
 export async function logout(dispatch) {
