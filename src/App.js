@@ -22,7 +22,7 @@ function App() {
         <Nav />
         <NotificationContainer />
 
-        <div className='container is-widescreen pt-5'>
+        <div className='container is-widescreen p-5'>
           <Switch>
             {routes.map((route, index) => (
               <AppRoute
@@ -35,7 +35,7 @@ function App() {
         </div>
       </div>
 
-      <footer className='footer has-background-white-ter'>
+      <footer className='has-background-white-ter'>
         <div className='content has-text-centered pt-3 pb-3'>
           <div>
             Icons made by <a href='https://www.flaticon.com/authors/srip' title='srip'>srip</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>

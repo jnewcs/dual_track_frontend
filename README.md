@@ -1,6 +1,13 @@
 # dual_track_frontend
 Frontend React app for DualTrack service. It is deployed on [GitHub Pages and uses React Router](https://www.freecodecamp.org/news/deploy-a-react-app-to-github-pages/).
 
+## Start Server Locally
+To run the app with HTTPS enable, we can do the following:
+
+```
+HTTPS=true npm start
+```
+
 ## Service Worker
 In production (i.e. deployed to Github Pages), we use a service worker to emulate a more native experience. We cache assets for an offline experience and show an update banner to the user when a new version has been deployed.
 
@@ -34,7 +41,12 @@ When installing node modules for the first time in WSL2, I had to force clear th
 npm cache clear --force
 ```
 
-## Dependencies
+## Useful Resources
 We are using a few libraries to make our lives easier:
 
 1. To make HTTP requests (GET, POST, etc.), we are using [superagent](https://www.npmjs.com/package/superagent)
+
+2. To learn how to make a JS stopwatch, I followed [this article on Medium](https://tinloof.com/blog/how-to-build-a-stopwatch-with-html-css-js-react-part-2/).
+
+3. To keep our app open while in workout mode, we followed [this Google help article](https://web.dev/wake-lock/).
+* We have to be running the app in HTTPS mode locally to get this capability.

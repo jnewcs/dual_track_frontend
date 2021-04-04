@@ -2,6 +2,7 @@ import Dashboard from '../Pages/Dashboard';
 import Entrance from '../Pages/Entrance';
 import NotFound from '../Pages/NotFound';
 import Settings from '../Pages/Settings';
+import Workouts from '../Pages/Workouts';
 
 const routes =[
   {
@@ -20,6 +21,11 @@ const routes =[
     isPrivate: true
   },
   {
+    path:'/workouts',
+    component: Workouts,
+    isPrivate: true
+  },
+  {
     path:'/settings',
     component: Settings,
     isPrivate: true
@@ -30,5 +36,5 @@ const routes =[
     isPrivate: false
   },
 ]
- 
+
 export default routes;
