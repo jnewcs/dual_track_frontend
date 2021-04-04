@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js/with-encryption';
 import { pauseButtonSrc, playButtonSrc, resetButtonSrc, timeToString } from '../../Config/utils';
 import LockScreen from './LockScreen';
+import FullScreen from './FullScreen';
 
 const Workouts = ({ history }) => {
   // const dispatch = useAuthDispatch();
@@ -72,7 +73,10 @@ const Workouts = ({ history }) => {
           My Workouts
         </h1>
 
-        <LockScreen />
+        <div className='buttons'>
+          <LockScreen />
+          <FullScreen />
+        </div>
 
         <div className='box has-text-centered is-flex is-flex-direction-column is-align-items-center'>
           <h2 className='is-size-2 mb-3'>Stopwatch</h2>
