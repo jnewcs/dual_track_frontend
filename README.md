@@ -50,3 +50,12 @@ We are using a few libraries to make our lives easier:
 
 3. To keep our app open while in workout mode, we followed [this Google help article](https://web.dev/wake-lock/).
 * We have to be running the app in HTTPS mode locally to get this capability.
+
+4. If you GIT gets stuck in a weird state (i.e. corrupt loose object), you can run the following commands:
+
+```
+find .git/objects/ -size 0 -exec rm -f {} \;
+git fetch origin
+```
+
+Found in this [StackOverflow article](https://stackoverflow.com/questions/4254389/git-corrupt-loose-object);

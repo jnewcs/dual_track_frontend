@@ -85,18 +85,22 @@ const Workouts = ({ history }) => {
           <div className='mt-3 is-flex is-justify-content-space-between'>
             <img
               className='is-clickable mr-5'
+              tabIndex={0}
               id='main-action-button'
               alt={playing ? 'pause stopwatch' : 'start stopwatch'}
               src={playing ? pauseButtonSrc : playButtonSrc}
               onClick={handleMainAction}
+              onKeyUp={(e) => e.key === 'Enter' && handleMainAction()}
             />
 
             <img
               className='is-clickable'
+              tabIndex={0}
               id='reset-button'
               alt='reset stopwatch'
               src={resetButtonSrc}
               onClick={handleReset}
+              onKeyUp={(e) => e.key === 'Enter' && handleReset()}
             />
           </div>
         </div>
