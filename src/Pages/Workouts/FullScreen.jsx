@@ -15,11 +15,11 @@ const FullScreen = () => {
   return (
     <>
       {inFullScreen ? (
-        <div className='button' onClick={leaveFullScreen}>
+        <div className='button' tabIndex='0' onClick={leaveFullScreen} onKeyUp={(e) => e.key === 'Enter' && leaveFullScreen()}>
           Leave Full Screen
         </div>
       ) : (
-        <div className='button' onClick={enterFullScreen}>
+        <div className='button' tabIndex='0' onClick={enterFullScreen} onKeyUp={(e) => e.key === 'Enter' && enterFullScreen()}>
           Enter Full Screen
         </div>
       )}

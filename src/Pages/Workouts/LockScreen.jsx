@@ -30,11 +30,11 @@ const LockScreen = () => {
   return (
     <>
       {locked ? (
-        <div className='button' onClick={releaseWakeLock}>
+        <div className='button' tabIndex='0' onClick={releaseWakeLock} onKeyUp={(e) => e.key === 'Enter' && releaseWakeLock()}>
           Unlock Page
         </div>
       ) : (
-        <div className='button' onClick={requestWakeLock}>
+        <div className='button' tabIndex='0' onClick={requestWakeLock} onKeyUp={(e) => e.key === 'Enter' && requestWakeLock()}>
           Lock Page
         </div>
       )}

@@ -12,6 +12,7 @@ export function makeServer({ environment = 'test' } = {}) {
     },
     routes() {
       this.passthrough('/dual_track_frontend/CHANGELOG.json');
+      this.passthrough('http://localhost:4000/pusher/**');
       this.urlPrefix = 'https://glacial-plateau-65219.herokuapp.com';
 
       this.post('/login', (schema, request) => {
@@ -31,7 +32,7 @@ export function makeServer({ environment = 'test' } = {}) {
         }
 
         return new Response(401, {}, { sucess: false, message: 'Not authorized' });
-    });
+      });
     },
   })
 

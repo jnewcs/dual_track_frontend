@@ -1,6 +1,6 @@
 const superagent = require('superagent');
 
-const ROOT_PROD_URL = 'https://glacial-plateau-65219.herokuapp.com';
+export const ROOT_PROD_URL = 'https://glacial-plateau-65219.herokuapp.com';
 const sucessObject = { success: true };
 const failureObject = { success: false };
 const unhandledErrorMsg = 'Unhandled error while logging in :(';

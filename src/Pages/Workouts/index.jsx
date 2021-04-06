@@ -1,53 +1,84 @@
-import React, { useEffect, useState } from 'react';
-import Pusher from 'pusher-js/with-encryption';
+import React, { Component } from 'react';
+import Pusher from 'pusher-js';
+import { ROOT_PROD_URL } from '../../Context/actions';
 import LockScreen from './LockScreen';
 import FullScreen from './FullScreen';
 import StopWatch from '../../Components/Stopwatch';
 import ChatBubble from './ChatBubble';
 
-const Workouts = ({ _history }) => {
-  const [chatHistory, setChatHistory] = useState([]);
-  const [chatChannel, setChatChannel] = useState(null);
+class Workouts extends Component {
+  constructor() {
+    super();
+    this.state = {
+      chatHistory: []
+    };
 
-  useEffect(() => {
     // Enable pusher logging - not enabled in any environment except local
-    Pusher.logToConsole = process.env.NODE_ENV === 'development';
+    const isLocal = process.env.NODE_ENV === 'development';
+    Pusher.logToConsole = isLocal;
 
-    var pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
-      cluster: process.env.REACT_APP_PUSHER_CLUSTER
+    this.pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
+      cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+      authEndpoint: isLocal ? `http://localhost:4000/pusher/auth` :`${ROOT_PROD_URL}/pusher/auth`,
+      auth: {
+        headers: { 'Authorization': localStorage.getItem('currentUserToken') || '' }
+      }
     });
 
     // TODO: Need to replace environment variable with value from the actual DB
-    var channel = pusher.subscribe(`workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
-    channel.bind('new-message', function(data) {
-      alert(JSON.stringify(data));
-    });
-    setChatChannel(channel);
+    this.channel = this.pusher.subscribe(`private-workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
+  }
 
-    return () => {
-      pusher.unsubscribe(`workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
-      channel.unbind('new-message');
-      setChatChannel(null);
-    };
-  }, []);
+  componentDidMount() {
+    this.channel.bind('client-chat-message', (data) => {
+      this.setState({
+        chatHistory: [
+          ...this.state.chatHistory,
+          {
+            ...data,
+            sender: 'other'
+          }
+        ]
+      });
+    }, this);
+  }
 
-  return (
-    <div>
-      <div className='' >
-        <h1 className='is-size-1 mb-5'>
-          My Workouts
-        </h1>
+  componentWillUnmount() {
+    if (this.channel) {
+      this.channel.unbind('client-chat-message');
+    }
 
-        <div className='buttons'>
-          <LockScreen />
-          <FullScreen />
+    this.pusher.unsubscribe(`private-workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
+  }
+
+  setChatHistory = (history) => {
+    this.setState({ chatHistory: history });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className='' >
+          <h1 className='is-size-1 mb-5'>
+            My Workouts
+          </h1>
+
+          <div className='buttons'>
+            <LockScreen />
+            <FullScreen />
+          </div>
+
+          <StopWatch />
+
+          <ChatBubble
+            channel={this.channel}
+            chatHistory={this.state.chatHistory}
+            setChatHistory={this.setChatHistory}
+          />
         </div>
-
-        <StopWatch />
-        <ChatBubble channel={chatChannel} chatHistory={chatHistory} setChatHistory={setChatHistory} />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Workouts;
