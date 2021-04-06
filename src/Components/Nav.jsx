@@ -1,9 +1,15 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useAuthState } from '../Context';
 
 const Nav = () => {
   const { email, updateAvailable } = useAuthState();
+  const [showMenu, toggleMenu] = useState(false);
+
+  let location = useLocation();
+  useEffect(() => {
+    toggleMenu(false);
+  }, [location]);
 
   return (
     <nav className='navbar is-light' role='navigation' aria-label='main navigation'>
@@ -12,14 +18,22 @@ const Nav = () => {
           DualTrack
         </div>
 
-        <div role='button' className='navbar-burger' aria-label='menu' aria-expanded='false' data-target='navbar-menu'>
+        <div
+          role='button'
+          className='navbar-burger'
+          aria-label='menu'
+          aria-expanded='false'
+          data-target='navbar-menu'
+          id='navbar-burger'
+          onClick={() => toggleMenu(!showMenu)}
+        >
           <span aria-hidden='true'></span>
           <span aria-hidden='true'></span>
           <span aria-hidden='true'></span>
         </div>
       </div>
 
-      <div id='navbar-menu' className='navbar-menu'>
+      <div id='navbar-menu' className={showMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
         <div className='navbar-start'>
           {Boolean(email) && (
             <>

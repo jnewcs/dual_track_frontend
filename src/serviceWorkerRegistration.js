@@ -58,6 +58,7 @@ function registerValidSW(swUrl, config) {
         // The service worker is installed and we just need to activate it
         // Case handled by the settings page update interface
         // Uncomment the following line to force an update
+        registration.waiting.skipWaiting();
       }
 
       registration.onupdatefound = () => {
@@ -71,6 +72,7 @@ function registerValidSW(swUrl, config) {
             if (navigator.serviceWorker.controller) {
               // At this point, we know there is a new version ready
               // Uncomment the following line to force an update
+              navigator.serviceWorker.skipWaiting();
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a

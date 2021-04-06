@@ -14,7 +14,7 @@ const Dashboard = ({ history }) => {
     <div>
       <div className='' >
         <h1 className='is-size-1 mb-5'>
-          Dashboard
+          My Dashboard
         </h1>
 
         <div className='buttons'>

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js/with-encryption';
-import { pauseButtonSrc, playButtonSrc, resetButtonSrc, timeToString } from '../../Config/utils';
 import LockScreen from './LockScreen';
 import FullScreen from './FullScreen';
+import StopWatch from '../../Components/Stopwatch';
+import ChatBubble from './ChatBubble';
 
-const Workouts = ({ history }) => {
-  // const dispatch = useAuthDispatch();
-  // const userDetails = useAuthState();
-  const [playing, setPlaying ] = useState(false);
-  const [startTime, setTime ] = useState(null);
-  const [elapsedTime, setElapsedTime ] = useState(0);
-  const [timerInterval, setTimerInterval ] = useState(null);
+const Workouts = ({ _history }) => {
+  const [chatHistory, setChatHistory] = useState([]);
+  const [chatChannel, setChatChannel] = useState(null);
 
   useEffect(() => {
     // Enable pusher logging - not enabled in any environment except local
@@ -20,51 +17,19 @@ const Workouts = ({ history }) => {
       cluster: process.env.REACT_APP_PUSHER_CLUSTER
     });
 
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
+    // TODO: Need to replace environment variable with value from the actual DB
+    var channel = pusher.subscribe(`workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
+    channel.bind('new-message', function(data) {
       alert(JSON.stringify(data));
     });
+    setChatChannel(channel);
 
     return () => {
-      pusher.unsubscribe('my-channel');
-      channel.unbind('new-comment');
+      pusher.unsubscribe(`workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
+      channel.unbind('new-message');
+      setChatChannel(null);
     };
   }, []);
-
-  const handleMainAction = () => {
-    if (!playing) {
-      setTime(Date.now() - elapsedTime);
-    } else {
-      clearInterval(timerInterval);
-    }
-
-    setPlaying(!playing);
-  };
-
-  useEffect(() => {
-    // With react hooks, we can't set a callback after
-    // calling setState on a state variable. To get around this,
-    // we setup an effect that triggers when startTime is changed
-    if (startTime === null) {
-      clearInterval(timerInterval);
-      setTimerInterval(null);
-      setElapsedTime(0);
-    } else {
-      const interval = setInterval(function(){
-        if (startTime === null) {
-          setElapsedTime(0);
-        } else {
-          setElapsedTime(Date.now() - startTime);
-        }
-      }, 10);
-      setTimerInterval(interval);
-    }
-  }, [startTime]); // eslint-disable-line
-
-  const handleReset = () => {
-    setTime(null);
-    setPlaying(false);
-  };
 
   return (
     <div>
@@ -78,36 +43,8 @@ const Workouts = ({ history }) => {
           <FullScreen />
         </div>
 
-        <div className='box has-text-centered is-flex is-flex-direction-column is-align-items-center'>
-          <h2 className='is-size-2 mb-3'>Stopwatch</h2>
-          <div className='stopwatch-circle circle is-flex is-justify-content-center is-align-items-center'>
-            <span className='time is-size-2' id='display'>
-              {elapsedTime ? timeToString(elapsedTime) : '00:00:00'}
-            </span>
-          </div>
-
-          <div className='mt-3 is-flex is-justify-content-space-between'>
-            <img
-              className='is-clickable mr-5'
-              tabIndex={0}
-              id='main-action-button'
-              alt={playing ? 'pause stopwatch' : 'start stopwatch'}
-              src={playing ? pauseButtonSrc : playButtonSrc}
-              onClick={handleMainAction}
-              onKeyUp={(e) => e.key === 'Enter' && handleMainAction()}
-            />
-
-            <img
-              className='is-clickable'
-              tabIndex={0}
-              id='reset-button'
-              alt='reset stopwatch'
-              src={resetButtonSrc}
-              onClick={handleReset}
-              onKeyUp={(e) => e.key === 'Enter' && handleReset()}
-            />
-          </div>
-        </div>
+        <StopWatch />
+        <ChatBubble channel={chatChannel} chatHistory={chatHistory} setChatHistory={setChatHistory} />
       </div>
     </div>
   );
