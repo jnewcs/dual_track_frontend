@@ -5,6 +5,13 @@ const ChatBubble = ({ channel, chatHistory, setChatHistory }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+    const lastElement = document.getElementById('last-chat-element')
+    if (lastElement) {
+      lastElement.scrollIntoView();
+    }
+  }, [chatHistory]);
+
+  useEffect(() => {
     const escFunction = (e) => {
       if (e.keyCode !== 27) return;
 
@@ -91,6 +98,8 @@ const ChatBubble = ({ channel, chatHistory, setChatHistory }) => {
                 </div>
               );
             })}
+
+            <div id='last-chat-element'></div>
           </div>
 
           <div className='chat-send-box box mt-2 p-3'>
