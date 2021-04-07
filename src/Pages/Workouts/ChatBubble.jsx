@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 const ChatBubble = ({ channel, chatHistory, setChatHistory }) => {
   const [open, setOpenStatus] = useState(false);
+  const [unreadMessage, setUnreadStatus] = useState(false);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const lastElement = document.getElementById('last-chat-element')
+    if (!open && chatHistory.length) {
+      setUnreadStatus(true);
+    }
+    const lastElement = document.getElementById('last-chat-element');
     if (lastElement) {
       lastElement.scrollIntoView();
     }
-  }, [chatHistory]);
+  }, [chatHistory, open]);
 
   useEffect(() => {
     const escFunction = (e) => {
@@ -62,6 +66,7 @@ const ChatBubble = ({ channel, chatHistory, setChatHistory }) => {
     <>
       <div className='button' tabIndex={0} onClick={openChat} onKeyUp={(e) => e.key === 'Enter' && openChat()}>
         Workout Chat
+        {unreadMessage && <div className='dot ml-1 has-background-primary'></div>}
       </div>
 
       {open && (

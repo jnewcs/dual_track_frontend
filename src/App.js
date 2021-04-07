@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.scss';
 import './Styles/General.css';
 import { Switch } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { useAuthDispatch } from './Context';
 import AppRoute from './Components/AppRoute';
 import Nav from './Components/Nav';
 import NotificationContainer from './Components/NotificationContainer';
+import Loader from './Components/Loader';
 
 function App() {
   const dispatch = useAuthDispatch();
@@ -23,15 +24,17 @@ function App() {
         <NotificationContainer />
 
         <div className='container is-widescreen p-5'>
-          <Switch>
-            {routes.map((route, index) => (
-              <AppRoute
-                exact
-                key={index}
-                {...route}
-              />
-            ))}
-          </Switch>
+          <Suspense fallback={<Loader />}>
+            <Switch>
+                {routes.map((route, index) => (
+                  <AppRoute
+                    exact
+                    key={index}
+                    {...route}
+                  />
+                ))}
+            </Switch>
+          </Suspense>
         </div>
       </div>
 

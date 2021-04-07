@@ -36,7 +36,7 @@ const Form = ({ localEmail, setEmail, loading, password, setPassword, onClick, p
 
     <button
       type='submit'
-      className='button is-primary mt-5'
+      className={`button is-primary mt-5 ${loading ? 'is-loading' : undefined}`}
       onClick={onClick}
       disabled={loading}
     >

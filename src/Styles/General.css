@@ -32,6 +32,30 @@ html, body {
   border-radius: 50%;
 }
 
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner-container {
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  border-top-color: #07d;
+  animation: spinner .8s linear infinite;
+}
+
 .stopwatch-circle {
   border: 2px solid;
   width: 250px;

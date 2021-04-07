@@ -1,8 +1,10 @@
+import React from 'react';
+
 import Dashboard from '../Pages/Dashboard';
 import Entrance from '../Pages/Entrance';
 import NotFound from '../Pages/NotFound';
 import Settings from '../Pages/Settings';
-import Workouts from '../Pages/Workouts';
+const LazyWorkouts = React.lazy(() => import('../Pages/Workouts'));
 
 const routes =[
   {
@@ -22,7 +24,7 @@ const routes =[
   },
   {
     path:'/workouts',
-    component: Workouts,
+    component: LazyWorkouts,
     isPrivate: true
   },
   {
