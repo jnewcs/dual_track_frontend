@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuthState } from '../../Context';
 import Chat from './Chat';
 
-const ChatBubble = ({ channel, chatHistory, setChatHistory, unreadMessage, setUnreadStatus, members }) => {
+const ChatBubble = ({ showChat, channel, chatHistory, setChatHistory, unreadMessage, setUnreadStatus, members }) => {
   const [open, setOpenStatus] = useState(false);
   const [message, setMessage] = useState('');
   const { email } = useAuthState();
@@ -28,7 +28,7 @@ const ChatBubble = ({ channel, chatHistory, setChatHistory, unreadMessage, setUn
     }
   }, [open]);  // eslint-disable-line
 
-  if (!channel) return null;
+  if (!channel || !showChat) return null;
 
   const openChat = () => {
     if (open) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import UpdateApp from '../../Components/UpdateApp';
 import { loginUser, useAuthDispatch, useAuthState } from '../../Context';
 import Form from './Form';
 
@@ -74,6 +75,8 @@ const Entrance = ({ history }) => {
             primaryText='Register'
           />
         )}
+
+        <UpdateApp />
       </div>
     </div>
   );

@@ -11,7 +11,8 @@ class Workouts extends Component {
     this.state = {
       chatHistory: [],
       unreadMessage: false,
-      members: []
+      members: [],
+      showChat: false
     };
 
     // Enable pusher logging - not enabled in any environment except local
@@ -32,7 +33,7 @@ class Workouts extends Component {
 
   componentDidMount() {
     this.channel.bind('pusher:subscription_succeeded', function(info) {
-      this.setState({ members: info.members });
+      this.setState({ members: info.members, showChat: true });
     }, this);
 
     this.channel.bind('pusher:member_added', function(member) {
