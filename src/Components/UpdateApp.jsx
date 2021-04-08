@@ -39,12 +39,14 @@ const UpdateApp = () => {
 
   return (
     <>
+      <hr />
+
       <div id='new-version-refresh-notification' className='mb-5 mt-5'>
         <div className='notification is-info is-light is-flex is-align-items-center'>
           A new version of DualTrack is available
 
           <div className='button is-light ml-2' id='new-version-refresh-button' onClick={refreshApp}>
-            Refresh to Update
+            Refresh to Update!
           </div>
         </div>
       </div>

@@ -34,8 +34,6 @@ const Settings = () => {
         </div>
       </div>
 
-      <hr />
-
       <InstallAppExplanation />
 
       <UpdateApp />
