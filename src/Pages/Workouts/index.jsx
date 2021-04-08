@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Pusher from 'pusher-js';
-import { ROOT_PROD_URL } from '../../Context/actions';
 import LockScreen from './LockScreen';
 import FullScreen from './FullScreen';
 import StopWatch from '../../Components/Stopwatch';
@@ -10,7 +9,9 @@ class Workouts extends Component {
   constructor() {
     super();
     this.state = {
-      chatHistory: []
+      chatHistory: [],
+      unreadMessage: false,
+      members: []
     };
 
     // Enable pusher logging - not enabled in any environment except local
@@ -19,40 +20,70 @@ class Workouts extends Component {
 
     this.pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
       cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-      authEndpoint: isLocal ? `http://localhost:4000/pusher/auth` :`${ROOT_PROD_URL}/pusher/auth`,
+      authEndpoint: `${process.env.REACT_APP_ROOT_URL}/pusher/auth`,
       auth: {
         headers: { 'Authorization': localStorage.getItem('currentUserToken') || '' }
       }
     });
 
     // TODO: Need to replace environment variable with value from the actual DB
-    this.channel = this.pusher.subscribe(`private-workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
+    this.channel = this.pusher.subscribe(`presence-workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
   }
 
   componentDidMount() {
+    this.channel.bind('pusher:subscription_succeeded', function(info) {
+      this.setState({ members: info.members });
+    }, this);
+
+    this.channel.bind('pusher:member_added', function(member) {
+      const newMembers = {
+        ...this.state.members,
+        [member.id]: member.info
+      }
+      this.setState({ members: newMembers });
+    }, this);
+
+    this.channel.bind('pusher:member_removed', function(member) {
+      console.log('member removed!');
+      const newMembers = Object.keys(this.state.members)
+        .filter(key => `${key}` !== `${member.id}`)
+        .reduce((obj, key) => {
+          obj[key] = this.state.members[key];
+          return obj;
+        }, {});
+
+      this.setState({ members: newMembers });
+    }, this);
+
     this.channel.bind('client-chat-message', (data) => {
       this.setState({
         chatHistory: [
           ...this.state.chatHistory,
           {
-            ...data,
-            sender: 'other'
+            ...data
           }
-        ]
+        ],
+        unreadMessage: true
       });
     }, this);
   }
 
   componentWillUnmount() {
+    this.pusher.unsubscribe(`presence-workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
+
     if (this.channel) {
-      this.channel.unbind('client-chat-message');
+      this.channel.unbind();
     }
 
-    this.pusher.unsubscribe(`private-workoutChannel-${process.env.REACT_APP_WORKOUT_UID}`);
+    document.body.classList.remove('not-vertically-scrollable');
   }
 
   setChatHistory = (history) => {
     this.setState({ chatHistory: history });
+  }
+
+  setUnreadStatus = (status) => {
+    this.setState({ unreadMessage: status });
   }
 
   render() {
@@ -72,8 +103,9 @@ class Workouts extends Component {
 
           <ChatBubble
             channel={this.channel}
-            chatHistory={this.state.chatHistory}
             setChatHistory={this.setChatHistory}
+            setUnreadStatus={this.setUnreadStatus}
+            {...this.state}
           />
         </div>
       </div>

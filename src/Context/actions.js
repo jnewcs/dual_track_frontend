@@ -1,6 +1,5 @@
 const superagent = require('superagent');
 
-export const ROOT_PROD_URL = 'https://glacial-plateau-65219.herokuapp.com';
 const sucessObject = { success: true };
 const failureObject = { success: false };
 const unhandledErrorMsg = 'Unhandled error while logging in :(';
@@ -9,7 +8,7 @@ export function loginUser(dispatch, history, payload) {
   dispatch({ type: 'REQUEST_LOGIN' });
 
   return superagent
-    .post(`${ROOT_PROD_URL}/login`)
+    .post(`${process.env.REACT_APP_ROOT_URL}/login`)
     .send(payload) // sends a JSON post body
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/json')
@@ -40,7 +39,7 @@ export function loginUser(dispatch, history, payload) {
 export async function checkAuth(dispatch) {
   const token = localStorage.getItem('currentUserToken') || '';
   return superagent
-    .get(`${ROOT_PROD_URL}/users/check`)
+    .get(`${process.env.REACT_APP_ROOT_URL}/users/check`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/json')
     .set('Authorization', token)

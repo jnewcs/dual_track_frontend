@@ -5,11 +5,11 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './Context';
-import { makeServer } from './Config/mockServer';
 
-if (process.env.NODE_ENV === 'development') {
-  makeServer({ environment: 'development' });
-}
+// import { makeServer } from './Config/mockServer';
+// // if (process.env.NODE_ENV === 'development') {
+// //   makeServer({ environment: 'development' });
+// // }
 
 ReactDOM.render(
   <React.StrictMode>

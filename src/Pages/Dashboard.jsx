@@ -1,14 +1,9 @@
 import React from 'react'
-import { logout, checkAuth, useAuthDispatch, useAuthState } from '../Context';
+import { checkAuth, useAuthDispatch, useAuthState } from '../Context';
 
-const Dashboard = ({ history }) => {
+const Dashboard = ({ _history }) => {
   const dispatch = useAuthDispatch();
-  const userDetails = useAuthState();
-
-  const handleLogout = () => {
-    logout(dispatch); // call the logout action
-    history.push('/entrance'); // navigate to logout page on logout
-  };
+  const { email } = useAuthState();
 
   return (
     <div>
@@ -18,10 +13,6 @@ const Dashboard = ({ history }) => {
         </h1>
 
         <div className='buttons'>
-          <button className='button is-default' onClick={handleLogout}>
-            Logout
-          </button>
-
           <button className='button is-default' onClick={() => checkAuth(dispatch)}>
             Check Auth :)
           </button>
@@ -29,7 +20,7 @@ const Dashboard = ({ history }) => {
       </div>
 
       <p>
-        {`Welcome to the dashboard ${userDetails.email}!`}
+        {`Welcome to the dashboard ${email}!`}
       </p>
     </div>
   );

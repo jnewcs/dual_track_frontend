@@ -64,17 +64,23 @@ html, body {
 
 .chat-interface {
   position: fixed;
-  bottom: 0px;
+  top: 64px;
   left: 0px;
+  height: calc(100% - 64px);
   width: 100%;
 }
 .chat-messages {
   overflow-y: scroll;
-  height: 40vh;
+  height: calc(100% - 128px);
 }
 
 .close-chat-interface {
   position: absolute;
   right: 10px;
   top: 0px;
+}
+
+.tag.is-medium {
+  white-space: normal;
+  height: 3.5em;
 }

@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { useAuthState } from '../Context';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { logout, useAuthDispatch, useAuthState } from '../Context';
 
 const Nav = () => {
   const { email, updateAvailable } = useAuthState();
   const [showMenu, toggleMenu] = useState(false);
-
+  const dispatch = useAuthDispatch();
+  const history = useHistory();
   let location = useLocation();
+
   useEffect(() => {
     toggleMenu(false);
   }, [location]);
+
+  const handleLogout = () => {
+    logout(dispatch);
+    history.push('/entrance');
+    dispatch({ type: 'TOGGLE_NOTIFICATION', notification: {
+      text: 'Logged out successfully. Come back soon!',
+      type: 'info'
+    }});
+  };
 
   return (
     <nav className='navbar is-light' role='navigation' aria-label='main navigation'>
@@ -43,6 +54,14 @@ const Nav = () => {
                 Settings
                 {updateAvailable && <div className='dot ml-1 has-background-primary'></div>}
               </NavLink>
+              <div
+                className='navbar-item is-clickable'
+                tabIndex={0}
+                onClick={handleLogout}
+                onKeyUp={(e) => e.key === 'Enter' && handleLogout()}
+              >
+                Logout
+              </div>
             </>
           )}
         </div>
