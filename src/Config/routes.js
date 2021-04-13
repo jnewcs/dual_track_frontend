@@ -3,8 +3,8 @@ import React from 'react';
 import Dashboard from '../Pages/Dashboard';
 import Entrance from '../Pages/Entrance';
 import NotFound from '../Pages/NotFound';
-import Settings from '../Pages/Settings';
 const LazyWorkouts = React.lazy(() => import('../Pages/Workouts'));
+const LazySettings = React.lazy(() => import('../Pages/Settings'));
 
 const routes =[
   {
@@ -29,7 +29,7 @@ const routes =[
   },
   {
     path:'/settings',
-    component: Settings,
+    component: LazySettings,
     isPrivate: true
   },
   {

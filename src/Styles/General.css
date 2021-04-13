@@ -84,3 +84,11 @@ html, body {
   white-space: normal;
   height: 3.5em;
 }
+
+#mobile-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1100;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
+}

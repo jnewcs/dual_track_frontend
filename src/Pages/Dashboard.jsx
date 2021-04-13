@@ -8,7 +8,7 @@ const Dashboard = ({ _history }) => {
   return (
     <div>
       <div className='' >
-        <h1 className='is-size-1 mb-5'>
+        <h1 className='is-size-2 mb-5'>
           My Dashboard
         </h1>
 

@@ -1,11 +1,16 @@
 import React from 'react';
 import InstallAppExplanation from './InstallAppExplanation';
 import UpdateApp from '../../Components/UpdateApp';
+import LogoutButton from '../../Components/LogoutButton';
 
 const Settings = () => {
   return (
     <>
-      <h1 className='is-size-1 mb-5'>My Settings</h1>
+      <h1 className='is-size-2 mb-5'>My Settings</h1>
+
+      <LogoutButton buttonClass='button' />
+
+      <hr />
 
       <div className='level mb-5'>
         <div className='level-item has-text-centered'>
@@ -37,6 +42,14 @@ const Settings = () => {
       <InstallAppExplanation />
 
       <UpdateApp />
+
+      <footer className='has-background-white-ter'>
+        <div className='content has-text-centered pt-3 pb-3'>
+          <div>
+            Icons made by <a href='https://www.flaticon.com/authors/srip' title='srip'>srip</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }

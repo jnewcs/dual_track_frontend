@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
-import { logout, useAuthDispatch, useAuthState } from '../Context';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import {  useAuthState } from '../Context';
+import LogoutButton from './LogoutButton';
 
-const Nav = () => {
+const DesktopNav = () => {
   const { email, updateAvailable } = useAuthState();
-  const [showMenu, toggleMenu] = useState(false);
-  const dispatch = useAuthDispatch();
-  const history = useHistory();
-  let location = useLocation();
-
-  useEffect(() => {
-    toggleMenu(false);
-  }, [location]);
-
-  const handleLogout = () => {
-    logout(dispatch);
-    history.push('/entrance');
-    dispatch({ type: 'TOGGLE_NOTIFICATION', notification: {
-      text: 'Logged out successfully. Come back soon!',
-      type: 'info'
-    }});
-  };
 
   return (
-    <nav className='navbar is-light' role='navigation' aria-label='main navigation'>
+    <nav className='navbar is-light is-hidden-touch' role='navigation' aria-label='main navigation'>
       <div className='navbar-brand'>
         <div className='has-text-primary is-size-3 p-2'>
           DualTrack
@@ -36,7 +20,6 @@ const Nav = () => {
           aria-expanded='false'
           data-target='navbar-menu'
           id='navbar-burger'
-          onClick={() => toggleMenu(!showMenu)}
         >
           <span aria-hidden='true'></span>
           <span aria-hidden='true'></span>
@@ -44,7 +27,7 @@ const Nav = () => {
         </div>
       </div>
 
-      <div id='navbar-menu' className={showMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
+      <div id='navbar-menu' className='navbar-menu'>
         <div className='navbar-start'>
           {Boolean(email) && (
             <>
@@ -54,14 +37,7 @@ const Nav = () => {
                 Settings
                 {updateAvailable && <div className='dot ml-1 has-background-primary'></div>}
               </NavLink>
-              <div
-                className='navbar-item is-clickable'
-                tabIndex={0}
-                onClick={handleLogout}
-                onKeyUp={(e) => e.key === 'Enter' && handleLogout()}
-              >
-                Logout
-              </div>
+              <LogoutButton buttonClass='navbar-item is-clickable' />
             </>
           )}
         </div>
@@ -80,4 +56,4 @@ const Nav = () => {
   );
 }
 
-export default Nav;
+export default DesktopNav;

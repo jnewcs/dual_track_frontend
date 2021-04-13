@@ -7,9 +7,10 @@ import { addPwaUpdateListener } from 'pwa-helper-components';
 import routes from './Config/routes.js';
 import { useAuthDispatch } from './Context';
 import AppRoute from './Components/AppRoute';
-import Nav from './Components/Nav';
+import DesktopNav from './Components/DesktopNav';
 import NotificationContainer from './Components/NotificationContainer';
 import Loader from './Components/Loader';
+import MobileNav from './Components/MobileNav';
 
 function App() {
   const dispatch = useAuthDispatch();
@@ -20,7 +21,7 @@ function App() {
   return (
     <>
       <div id='app-container'>
-        <Nav />
+        <DesktopNav />
         <NotificationContainer />
 
         <div className='container is-widescreen p-5'>
@@ -36,15 +37,9 @@ function App() {
             </Switch>
           </Suspense>
         </div>
-      </div>
 
-      <footer className='has-background-white-ter'>
-        <div className='content has-text-centered pt-3 pb-3'>
-          <div>
-            Icons made by <a href='https://www.flaticon.com/authors/srip' title='srip'>srip</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
-          </div>
-        </div>
-      </footer>
+        <MobileNav />
+      </div>
     </>
   );
 }
