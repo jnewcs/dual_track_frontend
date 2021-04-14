@@ -1,6 +1,7 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { useAuthState } from '../Context';
+import RedirectWrapper from './RedirectWrapper';
 
 const AppRoute = ({ component: Component, path, isPrivate, ...rest }) => {
   const { email } = useAuthState();
@@ -9,7 +10,7 @@ const AppRoute = ({ component: Component, path, isPrivate, ...rest }) => {
       path={path}
       render={props =>
         isPrivate && !Boolean(email) ? (
-          <Redirect to={{ pathname: '/entrance' }} />
+          <RedirectWrapper pathname='/entrance' />
         ) : (
           <Component {...props} />
         )
