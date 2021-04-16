@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Pusher from 'pusher-js';
 import LockScreen from './LockScreen';
 import FullScreen from './FullScreen';
-import StopWatch from '../../Components/Stopwatch';
 import ChatBubble from './ChatBubble';
+import Segments from './Segments';
 
 class WorkoutDetail extends Component {
   constructor(props) {
@@ -96,16 +96,15 @@ class WorkoutDetail extends Component {
         <div className='buttons'>
           <LockScreen />
           <FullScreen />
+          <ChatBubble
+            channel={this.channel}
+            setChatHistory={this.setChatHistory}
+            setUnreadStatus={this.setUnreadStatus}
+            {...this.state}
+          />
         </div>
 
-        <StopWatch />
-
-        <ChatBubble
-          channel={this.channel}
-          setChatHistory={this.setChatHistory}
-          setUnreadStatus={this.setUnreadStatus}
-          {...this.state}
-        />
+        <Segments selectedWorkout={this.props.selectedWorkout} />
       </>
     );
   }

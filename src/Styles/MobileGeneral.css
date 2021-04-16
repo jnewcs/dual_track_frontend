@@ -1,0 +1,11 @@
+/* For mobile phones and tablets */
+
+@media only screen and (max-width: 1023px) {
+  .chat-interface {
+    top: 0px;
+  }
+
+  .chat-messages {
+    height: calc(100% - 150px);
+  }
+}

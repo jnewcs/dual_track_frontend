@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import './App.scss';
 import './Styles/General.css';
+import './Styles/MobileGeneral.css';
 import { Switch } from 'react-router-dom';
 import { addPwaUpdateListener } from 'pwa-helper-components';
 

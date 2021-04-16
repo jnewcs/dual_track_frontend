@@ -58,26 +58,34 @@ html, body {
 
 .stopwatch-circle {
   border: 2px solid;
-  width: 250px;
-  height: 250px;
+  width: 125px;
+  height: 125px;
 }
 
 .chat-interface {
   position: fixed;
   top: 64px;
   left: 0px;
-  height: calc(100% - 64px);
+  height: 100%;
   width: 100%;
+  z-index: 2;
 }
+
 .chat-messages {
   overflow-y: scroll;
-  height: calc(100% - 128px);
+  height: calc(100% - 225px);
 }
 
 .close-chat-interface {
   position: absolute;
   right: 10px;
   top: 0px;
+}
+
+.segment-position {
+  position: absolute;
+  right: 8px;
+  top: 8px;
 }
 
 .tag.is-medium {
@@ -89,6 +97,6 @@ html, body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  z-index: 1100;
+  z-index: 1;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
 }

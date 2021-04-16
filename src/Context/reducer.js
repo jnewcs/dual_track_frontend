@@ -14,7 +14,6 @@ export const initialState = {
 
 export const AuthReducer = (initialState, action) => {
   switch (action.type) {
-    case 'REQUEST_WORKOUTS':
     case 'REQUEST_WORKOUT':
     case 'REQUEST_LOGIN':
     case 'REQUEST_AUTH':
@@ -59,6 +58,13 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         notification: action.notification
+      };
+    case 'REQUEST_WORKOUTS':
+      return {
+        ...initialState,
+        loading: true,
+        errorMessage: null,
+        selectedWorkout: {}
       };
     case 'RECEIVE_WORKOUTS':
       return {

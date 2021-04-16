@@ -73,8 +73,6 @@ const ChatBubble = ({ showChat, channel, chatHistory, setChatHistory, unreadMess
         {unreadMessage && <div className='dot ml-1 has-background-primary'></div>}
       </button>
 
-      {Object.values(members).length < 2 && <div className='mt-2'>Waiting for others to join the workout :)</div>}
-
       <ChatInterface
         open={open}
         members={members}

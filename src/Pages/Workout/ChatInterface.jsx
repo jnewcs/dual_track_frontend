@@ -45,7 +45,7 @@ const ChatInterface = ({ open, members, chatHistory, closeChat, message, setMess
         <div id='last-chat-element'></div>
       </div>
 
-      <div className='chat-send-box box mt-2 p-3'>
+      <div className='chat-send-box box mt-2 p-3 mb-2'>
         <div className='is-flex'>
           <input
             className='input is-normal'
