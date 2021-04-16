@@ -39,6 +39,7 @@ export function loginUser(dispatch, history, payload) {
 
 export async function getWorkouts(dispatch) {
   // TODO: Change this to grab workouts from the backend service
+  // We should use the needsLoginToProceed function here too
   dispatch({ type: 'REQUEST_WORKOUTS' });
   setTimeout(() => {
     dispatch({ type: 'RECEIVE_WORKOUTS', workouts: mockedWorkouts });
@@ -47,6 +48,7 @@ export async function getWorkouts(dispatch) {
 
 export async function getWorkout(identifier, dispatch) {
   // TODO: Change this to grab the workout from the backend service
+  // We should use the needsLoginToProceed function here too
   dispatch({ type: 'REQUEST_WORKOUT' });
   setTimeout(() => {
     const mockedWorkout = mockedWorkoutsWithDetails.find(w => w.identifier === identifier);
