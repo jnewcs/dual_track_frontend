@@ -1,3 +1,4 @@
+import { mockedWorkouts, mockedWorkoutsWithDetails } from '../Config/mocks';
 const superagent = require('superagent');
 
 const sucessObject = { success: true };
@@ -40,22 +41,21 @@ export async function getWorkouts(dispatch) {
   // TODO: Change this to grab workouts from the backend service
   dispatch({ type: 'REQUEST_WORKOUTS' });
   setTimeout(() => {
-    const mockedWorkouts = [
-      {
-        id: 1,
-        identifier: process.env.REACT_APP_WORKOUT_UID,
-        name: 'Track 150m Intervals',
-        description: '5 sets of 150m with 2 minute breaks'
-      },
-      {
-        id: 3,
-        identifier: '8935fr-1m32lk',
-        name: '1 mile endurance',
-        description: 'Simple 1 mile run to gain endurance'
-      },
-    ];
     dispatch({ type: 'RECEIVE_WORKOUTS', workouts: mockedWorkouts });
-  }, 1500);
+  }, 1000);
+};
+
+export async function getWorkout(identifier, dispatch) {
+  // TODO: Change this to grab the workout from the backend service
+  dispatch({ type: 'REQUEST_WORKOUT' });
+  setTimeout(() => {
+    const mockedWorkout = mockedWorkoutsWithDetails.find(w => w.identifier === identifier);
+    if (mockedWorkout) {
+      dispatch({ type: 'RECEIVE_WORKOUT', workout: mockedWorkout });
+    } else {
+      dispatch({ type: 'RECEIVE_WORKOUT_ERROR', error: 'Could not find this workout :(' });
+    }
+  }, 1000);
 };
 
 export async function checkAuth(dispatch) {
