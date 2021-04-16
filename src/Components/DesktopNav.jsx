@@ -32,7 +32,7 @@ const DesktopNav = () => {
           {Boolean(email) && (
             <>
               <NavLink to='/dashboard' className='navbar-item' activeClassName='is-active'>Dashboard</NavLink>
-              <NavLink to='/workouts' className='navbar-item' activeClassName='is-active'>Workouts</NavLink>
+              <NavLink exact={false} to='/workouts' className='navbar-item' activeClassName='is-active'>Workouts</NavLink>
               <NavLink to='/settings' className='navbar-item' activeClassName='is-active'>
                 Settings
                 {updateAvailable && <div className='dot ml-1 has-background-primary'></div>}

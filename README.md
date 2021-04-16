@@ -70,3 +70,5 @@ We are using a few libraries to make our lives easier:
     ```
 
     * Found this answer in this [StackOverflow article](https://stackoverflow.com/questions/4254389/git-corrupt-loose-object).
+
+5. Learning how to do [dynamic routing with react router](https://learnwithparam.com/blog/dynamic-pages-in-react-router/).

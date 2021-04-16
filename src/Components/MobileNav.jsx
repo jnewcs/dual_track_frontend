@@ -14,7 +14,7 @@ const MobileNav = () => {
             <Home />
           </NavLink>
 
-          <NavLink to='/workouts' className='icon p-2 has-text-black' activeClassName='has-text-primary'>
+          <NavLink exact={false} to='/workouts' className='icon p-2 has-text-black' activeClassName='has-text-primary'>
             <Watch />
           </NavLink>
 

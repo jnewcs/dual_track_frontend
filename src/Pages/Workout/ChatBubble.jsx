@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from '../../Context';
-import Chat from './Chat';
+import ChatInterface from './ChatInterface';
 
 const ChatBubble = ({ showChat, channel, chatHistory, setChatHistory, unreadMessage, setUnreadStatus, members }) => {
   const [open, setOpenStatus] = useState(false);
@@ -75,7 +75,7 @@ const ChatBubble = ({ showChat, channel, chatHistory, setChatHistory, unreadMess
 
       {Object.values(members).length < 2 && <div className='mt-2'>Waiting for others to join the workout :)</div>}
 
-      <Chat
+      <ChatInterface
         open={open}
         members={members}
         chatHistory={chatHistory}

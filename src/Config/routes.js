@@ -4,6 +4,7 @@ import Dashboard from '../Pages/Dashboard';
 import Entrance from '../Pages/Entrance';
 import NotFound from '../Pages/NotFound';
 const LazyWorkouts = React.lazy(() => import('../Pages/Workouts'));
+const LazyWorkout = React.lazy(() => import('../Pages/Workout'));
 const LazySettings = React.lazy(() => import('../Pages/Settings'));
 
 const routes =[
@@ -25,6 +26,11 @@ const routes =[
   {
     path:'/workouts',
     component: LazyWorkouts,
+    isPrivate: true
+  },
+  {
+    path:'/workouts/:identifier',
+    component: LazyWorkout,
     isPrivate: true
   },
   {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuthState } from '../../Context';
 import ChatMembers from './ChatMembers';
 
-const Chat = ({ open, members, chatHistory, closeChat, message, setMessage, sendMessage }) => {
+const ChatInterface = ({ open, members, chatHistory, closeChat, message, setMessage, sendMessage }) => {
   const { email } = useAuthState();
 
   if (!open || !members || Object.values(members).length < 2) {
@@ -65,4 +65,4 @@ const Chat = ({ open, members, chatHistory, closeChat, message, setMessage, send
   );
 };
 
-export default Chat;
+export default ChatInterface;
