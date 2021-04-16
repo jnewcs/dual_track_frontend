@@ -36,6 +36,28 @@ export function loginUser(dispatch, history, payload) {
     });
 }
 
+export async function getWorkouts(dispatch) {
+  // TODO: Change this to grab workouts from the backend service
+  dispatch({ type: 'REQUEST_WORKOUTS' });
+  setTimeout(() => {
+    const mockedWorkouts = [
+      {
+        id: 1,
+        identifier: process.env.REACT_APP_WORKOUT_UID,
+        name: 'Track 150m Intervals',
+        description: '5 sets of 150m with 2 minute breaks'
+      },
+      {
+        id: 3,
+        identifier: '8935fr-1m32lk',
+        name: '1 mile endurance',
+        description: 'Simple 1 mile run to gain endurance'
+      },
+    ];
+    dispatch({ type: 'RECEIVE_WORKOUTS', workouts: mockedWorkouts });
+  }, 1500);
+};
+
 export async function checkAuth(dispatch) {
   const token = localStorage.getItem('currentUserToken') || '';
   return superagent
@@ -45,6 +67,11 @@ export async function checkAuth(dispatch) {
     .set('Authorization', token)
     .end((_err, res) => {
       if (needsLoginToProceed(res, dispatch)) return;
+
+      dispatch({ type: 'TOGGLE_NOTIFICATION', notification: {
+        text: 'Auth token is still valid :)',
+        type: 'info'
+      }});
     });
 }
 

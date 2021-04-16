@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import Loader from '../../Components/Loader';
+import { useAuthDispatch, useAuthState } from '../../Context';
+import { getWorkouts } from '../../Context/actions';
 
 const Workouts = () => {
+  const { workouts, loading } = useAuthState();
+  const dispatch = useAuthDispatch();
+  useEffect(() => {
+    getWorkouts(dispatch);
+  }, [dispatch]);
+
+  const showWorkouts = !loading && workouts && !!workouts.length;
   return (
     <div>
       <div className='' >
@@ -9,19 +19,29 @@ const Workouts = () => {
           My Workouts
         </h1>
 
-        <div className='columns'>
-          <div className='column is-one-third'>
-            <div className='card'>
-              <div className='card-content'>
-                <div className='content'>
-                  <NavLink to={`/workouts/${process.env.REACT_APP_WORKOUT_UID}`}>
-                    Track 150m Workout
-                  </NavLink>
+        {loading && <Loader />}
+
+        {showWorkouts && (
+          <div className='columns'>
+            {workouts.map((workout) => (
+              <div className='column is-one-third' key={workout.identifier}>
+                <div className='card'>
+                  <div className='card-content'>
+                    <div className='content'>
+                      <NavLink to={`/workouts/${workout.identifier}`}>
+                        {workout.name}
+                      </NavLink>
+                      <hr />
+                      <p>
+                        {workout.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

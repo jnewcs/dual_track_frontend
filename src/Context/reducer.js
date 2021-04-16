@@ -7,11 +7,13 @@ export const initialState = {
   loading: false,
   notification: null,
   errorMessage: null,
-  updateAvailable: false
+  updateAvailable: false,
+  workouts: []
 };
 
 export const AuthReducer = (initialState, action) => {
   switch (action.type) {
+    case 'REQUEST_WORKOUTS':
     case 'REQUEST_LOGIN':
     case 'REQUEST_AUTH':
       return {
@@ -55,6 +57,13 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         notification: action.notification
+      };
+    case 'RECEIVE_WORKOUTS':
+      return {
+        ...initialState,
+        loading: false,
+        error: null,
+        workouts: action.workouts
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
