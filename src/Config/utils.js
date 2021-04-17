@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 // SVG Icon Links
 export const pauseButtonSrc = 'https://res.cloudinary.com/https-tinloof-com/image/upload/v1593360448/blog/time-in-js/pause-button_pinhpy.svg';
 export const playButtonSrc = 'https://res.cloudinary.com/https-tinloof-com/image/upload/v1593360448/blog/time-in-js/play-button_opkxmt.svg';
@@ -22,4 +24,8 @@ export function timeToString(time) {
   let formattedMS = ms.toString().padStart(2, "0");
 
   return `${formattedMM}:${formattedSS}:${formattedMS}`;
+}
+
+export function generateUUID() {
+  return uuidv4();
 }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import StopWatch from '../../Components/Stopwatch';
-import { timeToString } from '../../Config/utils';
+import SegmentActions from './SegmentActions';
 
-const Segment = ({ segment, segmentLength, index }) => {
+const Segment = ({ segment, segmentLength, index, workoutStarted }) => {
   const [showStopwatch, toggleStopwatch] = useState(false);
   const [finishTime, setFinishTime] = useState(null);
 
@@ -17,20 +16,11 @@ const Segment = ({ segment, segmentLength, index }) => {
     // TODO: consolidate info and show next segment
   };
 
-  const grabNotificationClass = () => {
-    const finishTimeInSeconds = finishTime / 1000.0;
-    const difference = segment.time_goal - finishTimeInSeconds;
-    if (difference < -8.0) return 'notification is-danger';
-    if (difference < -4.0) return 'notification is-warning';
-
-    return 'notification is-success';
-  };
-
   return (
     <div className='column is-one-third'>
       <div className='card'>
         <div className='segment-position'>
-          <span className='has-text-primary'>{index + 1 }</span> / {segmentLength}
+          {index + 1 } / {segmentLength}
         </div>
 
         <div className='card-content pt-1'>
@@ -49,25 +39,17 @@ const Segment = ({ segment, segmentLength, index }) => {
               </div>
             </div>
 
-            {finishTime ? (
-              <div className={grabNotificationClass()}>
-                <b className='is-size-5'>Actual Time</b>
-                <br/>
-                {timeToString(finishTime)}
-              </div>
-            ) : (
-              <>
-                {!showStopwatch && (
-                  <div tabIndex={0} className='button is-primary is-medium' onClick={startClick}>
-                    Start
-                  </div>
-                )}
-
-                {showStopwatch && <StopWatch onFinishCallback={onFinishCallback} />}
-              </>
-            )}
+            <SegmentActions
+              finishTime={finishTime}
+              timeGoal={segment.time_goal}
+              showStopwatch={showStopwatch}
+              startClick={startClick}
+              onFinishCallback={onFinishCallback}
+              workoutStarted={workoutStarted}
+            />
 
             <hr />
+
             <p>
               {segment.description}
             </p>

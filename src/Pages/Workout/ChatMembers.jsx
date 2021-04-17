@@ -6,18 +6,14 @@ const ChatMembers = ({ members }) => {
   if (!members || members.count < 2) return null;
 
   return (
-    <h5 className='chat-title is-size-5'>
-      People in Chat
-
-      <br/>
-
+    <div>
       {Object.values(members).map(member => {
         const tagType = member.email === email ? 'is-link' : 'is-light';
         return (
-          <div key={member.email} className={`tag ${tagType}`}>{member.email}</div>
+          <div key={member.email} className={`tag mr-1 mb-1 ${tagType}`}>{member.email}</div>
         );
       })}
-    </h5>
+    </div>
   );
 };
 

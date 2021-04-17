@@ -26,6 +26,16 @@ export const mockedWorkoutsWithDetails = [
         rest: 90.00,
         quantity: 1,
         description: 'Slow build up. Try to reach 60% speed by the finish line'
+      },
+      {
+        identifier: 't234o-G435231',
+        display_length: '100m',
+        length: 100.00,
+        measurement: 'meter',
+        time_goal: 20.00,
+        rest: 75.00,
+        quantity: 1,
+        description: 'Try to reach 60% speed by the finish line'
       }
     ]
   },

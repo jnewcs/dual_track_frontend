@@ -32,6 +32,11 @@ html, body {
   border-radius: 50%;
 }
 
+.tag.is-medium {
+  white-space: normal;
+  height: 3.5em;
+}
+
 @keyframes spinner {
   to {transform: rotate(360deg);}
 }
@@ -86,11 +91,6 @@ html, body {
   position: absolute;
   right: 8px;
   top: 8px;
-}
-
-.tag.is-medium {
-  white-space: normal;
-  height: 3.5em;
 }
 
 #mobile-footer {

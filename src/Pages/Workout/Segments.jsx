@@ -1,8 +1,8 @@
 import React from 'react';
 import Segment from './Segment';
 
-const Segments = ({ selectedWorkout }) => {
-  if (!selectedWorkout || !selectedWorkout.segments || !selectedWorkout.segments.length) {
+const Segments = ({ selectedWorkout, workoutStarted }) => {
+  if (!selectedWorkout.segments.length) {
     return (
       <p className='mb-3'>
         Workout cannot start. No segments added yet :(
@@ -21,7 +21,13 @@ const Segments = ({ selectedWorkout }) => {
 
       <div className='segments columns'>
         {segments.map((segment, index) => (
-          <Segment key={segment.identifier} segment={segment}segmentLength={segmentLength} index={index} />
+          <Segment
+            key={segment.identifier}
+            segment={segment}
+            segmentLength={segmentLength}
+            index={index}
+            workoutStarted={workoutStarted}
+          />
         ))}
       </div>
     </>

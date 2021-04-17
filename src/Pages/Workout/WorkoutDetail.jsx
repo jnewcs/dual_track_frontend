@@ -4,6 +4,8 @@ import LockScreen from './LockScreen';
 import FullScreen from './FullScreen';
 import ChatBubble from './ChatBubble';
 import Segments from './Segments';
+import ChatMembers from './ChatMembers';
+import Show from '../../Components/Show';
 
 class WorkoutDetail extends Component {
   constructor(props) {
@@ -16,8 +18,7 @@ class WorkoutDetail extends Component {
     };
 
     // Enable pusher logging - not enabled in any environment except local
-    const isLocal = process.env.NODE_ENV === 'development';
-    Pusher.logToConsole = isLocal;
+    Pusher.logToConsole = process.env.NODE_ENV === 'development';
 
     this.pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
       cluster: process.env.REACT_APP_PUSHER_CLUSTER,
@@ -70,6 +71,10 @@ class WorkoutDetail extends Component {
         unreadMessage: true
       });
     }, this);
+
+    this.channel.bind('client-workout-started', (data) => {
+      this.props.mirrorWorkout(data);
+    }, this);
   }
 
   componentWillUnmount() {
@@ -78,6 +83,8 @@ class WorkoutDetail extends Component {
     if (this.channel) {
       this.channel.unbind();
     }
+
+    this.pusher.disconnect();
 
     document.body.classList.remove('not-vertically-scrollable');
   }
@@ -90,10 +97,26 @@ class WorkoutDetail extends Component {
     this.setState({ unreadMessage: status });
   }
 
+  get showStartWorkoutButton() {
+    if (this.props.workoutStarted) return false;
+
+    return !!this.props.selectedWorkout.segments.length;
+  }
+
+  startWorkoutWrapper = () => {
+    this.props.startWorkout(this.channel);
+  }
+
   render() {
     return (
       <>
         <div className='buttons'>
+          <Show condition={this.showStartWorkoutButton}>
+            <div tabIndex={0} className='button is-primary' onClick={this.startWorkoutWrapper}>
+              Start Workout
+            </div>
+          </Show>
+
           <LockScreen />
           <FullScreen />
           <ChatBubble
@@ -104,7 +127,9 @@ class WorkoutDetail extends Component {
           />
         </div>
 
-        <Segments selectedWorkout={this.props.selectedWorkout} />
+        <ChatMembers members={this.state.members} />
+
+        <Segments selectedWorkout={this.props.selectedWorkout} workoutStarted={this.props.workoutStarted} />
       </>
     );
   }
