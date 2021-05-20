@@ -4,5 +4,8 @@
     },
     "0.2.0": {
         "description": "The latest and greatest changeset!"
+    },
+    "0.3.0": {
+      "description": "Saving data to localstorage :) Getting closer to 1.0.0 release"
     }
 }
