@@ -1,26 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Show from '../../Components/Show';
+import { useAuthState } from '../../Context';
 import SegmentActions from './SegmentActions';
+import SegmentDataTable from './SegmentDataTable';
+import SegmentRest from './SegmentRest';
 
-const Segment = ({ segment, segmentLength, index, workoutStarted }) => {
-  const [showStopwatch, toggleStopwatch] = useState(false);
-  const [finishTime, setFinishTime] = useState(null);
+const Segment = ({ segment, segmentsLength, showStopwatch, toggleStopwatch, segmentData, index, workoutStarted, segmentIdentifier }) => {
+  const [showRestTimer, toggleRestTimer] = useState(false);
+  const [restFinished, toggleRestFinished] = useState(false);
+  const { email } = useAuthState();
+
+  useEffect(() => {
+    // When the identifier changes, don't show the rest timer
+    toggleRestTimer(false);
+    toggleRestFinished(false);
+  }, [segmentIdentifier]);
+
+  if (!segment) return null;
 
   const startClick = () => {
     toggleStopwatch(!showStopwatch);
   };
   const onFinishCallback = (time) => {
-    toggleStopwatch(false);
-    setFinishTime(time);
-    // TODO: Kickoff rest period (segment.rest)
-    // TODO: show post segment feedback (good, neutral, bad)
-    // TODO: consolidate info and show next segment
+    toggleStopwatch(false, time);
+    toggleRestTimer(true);
   };
 
+  const onRestFinish = () => {
+    toggleRestTimer(false);
+    toggleRestFinished(true);
+  };
+
+  const myResultsIn = !!segmentData[email];
+
   return (
-    <div className='column is-one-third'>
+    <div className='mt-2'>
       <div className='card'>
         <div className='segment-position'>
-          {index + 1 } / {segmentLength}
+          {index + 1 } / {segmentsLength}
         </div>
 
         <div className='card-content pt-1'>
@@ -33,20 +50,20 @@ const Segment = ({ segment, segmentLength, index, workoutStarted }) => {
               </div>
 
               <div className='column is-half'>
-                <b className='is-size-5'>Rest</b>
-                <br/>
-                {segment.rest} seconds
+                <SegmentRest rest={segment.rest} showRestTimer={showRestTimer} onRestFinish={onRestFinish} restFinished={restFinished} />
               </div>
             </div>
 
-            <SegmentActions
-              finishTime={finishTime}
-              timeGoal={segment.time_goal}
-              showStopwatch={showStopwatch}
-              startClick={startClick}
-              onFinishCallback={onFinishCallback}
-              workoutStarted={workoutStarted}
-            />
+            <Show condition={!myResultsIn}>
+              <SegmentActions
+                showStopwatch={showStopwatch}
+                startClick={startClick}
+                onFinishCallback={onFinishCallback}
+                workoutStarted={workoutStarted}
+              />
+            </Show>
+
+            <SegmentDataTable segmentData={segmentData} timeGoal={segment.time_goal} />
 
             <hr />
 

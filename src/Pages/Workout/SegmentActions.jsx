@@ -1,20 +1,9 @@
 import React from 'react';
+import Show from '../../Components/Show';
 import StopWatch from '../../Components/Stopwatch';
-import { timeToString } from '../../Config/utils';
-import { grabSegmentNotificationClass } from './SegmentUtils';
 
-const SegmentActions = ({ workoutStarted, finishTime, timeGoal, startClick, onFinishCallback, showStopwatch }) => {
+const SegmentActions = ({ workoutStarted, startClick, onFinishCallback, showStopwatch }) => {
   if (!workoutStarted) return null;
-
-  if (finishTime) {
-    return (
-      <div className={grabSegmentNotificationClass(finishTime, timeGoal)}>
-        <b className='is-size-5'>Actual Time</b>
-        <br/>
-        {timeToString(finishTime)}
-      </div>
-    )
-  }
 
   return (
     <>
@@ -24,7 +13,9 @@ const SegmentActions = ({ workoutStarted, finishTime, timeGoal, startClick, onFi
         </div>
       )}
 
-      {showStopwatch && <StopWatch onFinishCallback={onFinishCallback} />}
+      <Show condition={showStopwatch}>
+        <StopWatch onFinishCallback={onFinishCallback} />
+      </Show>
     </>
   );
 }

@@ -6,11 +6,12 @@ import { generateUUID } from '../../Config/utils';
 import { useAuthDispatch, useAuthState } from '../../Context';
 import { getWorkout } from '../../Context/actions';
 import PreviousSessions from './PreviousSessions';
+import { getRelevantSegmentData, saveRelevantSegmentData } from './SegmentUtils';
 import WorkoutDetail from './WorkoutDetail';
 
 const Workout = ({ match }) => {
   const { params: { identifier } } = match;
-  const { selectedWorkout, error, loading } = useAuthState();
+  const { selectedWorkout, error, loading, email } = useAuthState();
   const dispatch = useAuthDispatch();
   const [activeTab, setActiveTab] = useState('current');
 
@@ -22,24 +23,61 @@ const Workout = ({ match }) => {
   const sessionIdenitiferInitial = workoutStartedInitial ? sessionFromLS : null;
   const [liveSessionIdentifier, setSessionIdentifier] = useState(sessionIdenitiferInitial);
 
-  const setWorkoutData = (uuid, newIdentifier) => {
+  const segmentIdentifierFromLS = localStorage.getItem('liveSegmentIdentifier') || null;
+  const [segmentIdentifier, setSegmentIdentifier] = useState(segmentIdentifierFromLS);
+
+  const defaultSegmentData = getRelevantSegmentData(identifier, liveSessionIdentifier, segmentIdentifier);
+  const [segmentData, setSegmentData] = useState(defaultSegmentData);
+
+  const setWorkoutData = (uuid, newIdentifier, newSegmentIdentifier, workoutStatus = true) => {
     localStorage.setItem('liveSessionIdentifier', uuid);
     localStorage.setItem('liveWorkoutIdentifier', newIdentifier);
-    setWorkoutStatus(true);
+    localStorage.setItem('liveSegmentIdentifier', newSegmentIdentifier);
+
+    setWorkoutStatus(workoutStatus);
     setSessionIdentifier(uuid);
+    setSegmentIdentifier(newSegmentIdentifier);
+    setSegmentData({});
   };
 
   const startWorkout = (channel = null) => {
     const uuid = generateUUID();
-    setWorkoutData(uuid, identifier);
+    const currentSegmentIdentifier = selectedWorkout.segments[0].identifier;
+    setWorkoutData(uuid, identifier, currentSegmentIdentifier);
 
     if (channel) {
-      channel.trigger('client-workout-started', { uuid, identifier });
+      channel.trigger('client-workout-started', { uuid, identifier, currentSegmentIdentifier });
     }
   };
 
+  const mirrorNextSegment = () => {
+    const currentIndex = selectedWorkout.segments.findIndex(s => s.identifier === segmentIdentifier);
+    let newSegmentIdentifier;
+    if ((currentIndex + 1) >= selectedWorkout.segments.length) {
+      newSegmentIdentifier = null;
+    } else {
+      newSegmentIdentifier = selectedWorkout.segments[currentIndex + 1].identifier;
+    }
+
+    localStorage.setItem('liveSegmentIdentifier', newSegmentIdentifier);
+    saveRelevantSegmentData(identifier, liveSessionIdentifier, segmentIdentifier, segmentData);
+    setSegmentIdentifier(newSegmentIdentifier);
+    setSegmentData({});
+    if (newSegmentIdentifier === null) {
+      setWorkoutData(null, null, null, false);
+      setActiveTab('previous');
+    }
+  }
+
+  const mirrorSegmentData = (data) => {
+    setSegmentData({
+      ...segmentData,
+      [data.email]: data.results
+    });
+  }
+
   const mirrorWorkout = (data) => {
-    setWorkoutData(data.uuid, data.identifier);
+    setWorkoutData(data.uuid, data.identifier, data.currentSegmentIdentifier);
   };
 
   useEffect(() => {
@@ -101,9 +139,15 @@ const Workout = ({ match }) => {
           workoutStarted={workoutStarted}
           startWorkout={startWorkout}
           mirrorWorkout={mirrorWorkout}
+          segmentIdentifier={segmentIdentifier}
+          segmentData={segmentData}
+          mirrorSegmentData={mirrorSegmentData}
+          mirrorNextSegment={mirrorNextSegment}
+          email={email}
         />
       )}
-      {activeTab === 'previous' && <PreviousSessions />}
+
+      {activeTab === 'previous' && <PreviousSessions selectedWorkout={selectedWorkout} />}
     </>
   );
 }

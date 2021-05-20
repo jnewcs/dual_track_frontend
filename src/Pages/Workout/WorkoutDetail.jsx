@@ -14,7 +14,8 @@ class WorkoutDetail extends Component {
       chatHistory: [],
       unreadMessage: false,
       members: [],
-      showChat: false
+      showChat: false,
+      showStopwatch: false
     };
 
     // Enable pusher logging - not enabled in any environment except local
@@ -75,6 +76,21 @@ class WorkoutDetail extends Component {
     this.channel.bind('client-workout-started', (data) => {
       this.props.mirrorWorkout(data);
     }, this);
+
+    this.channel.bind('client-segment-started', (_data) => {
+      // Event from another user starting a segment
+      this.setState({ showStopwatch: true });
+    }, this);
+
+    this.channel.bind('client-segment-finished', (segmentData) => {
+      // Event from another user finishing a segment
+      this.props.mirrorSegmentData(segmentData);
+    }, this);
+
+    this.channel.bind('client-segment-next', (_data) => {
+      // Event from another user going to the next segment
+      this.props.mirrorNextSegment();
+    }, this);
   }
 
   componentWillUnmount() {
@@ -107,6 +123,28 @@ class WorkoutDetail extends Component {
     this.props.startWorkout(this.channel);
   }
 
+  toggleStopwatch = (value, finishTime = null) => {
+    if (value) {
+      this.channel.trigger('client-segment-started', {});
+    } else {
+      const segment = this.props.selectedWorkout.segments.find(s => s.identifier === this.props.segmentIdentifier);
+      const segmentData = { email: this.props.email, results: {
+        finishTime,
+        timeGoal: segment.time_goal,
+        displayLength: segment.display_length
+      }};
+      this.channel.trigger('client-segment-finished', segmentData);
+      this.props.mirrorSegmentData(segmentData);
+    }
+
+    this.setState({ showStopwatch: value });
+  }
+
+  onNextClick = () => {
+    this.props.mirrorNextSegment();
+    this.channel.trigger('client-segment-next', {});
+  }
+
   render() {
     return (
       <>
@@ -129,7 +167,15 @@ class WorkoutDetail extends Component {
 
         <ChatMembers members={this.state.members} />
 
-        <Segments selectedWorkout={this.props.selectedWorkout} workoutStarted={this.props.workoutStarted} />
+        <Segments
+          selectedWorkout={this.props.selectedWorkout}
+          segmentIdentifier={this.props.segmentIdentifier}
+          segmentData={this.props.segmentData}
+          showStopwatch={this.state.showStopwatch}
+          toggleStopwatch={this.toggleStopwatch}
+          members={this.state.members}
+          onNextClick={this.onNextClick}
+        />
       </>
     );
   }

@@ -23,7 +23,7 @@ export const mockedWorkoutsWithDetails = [
         length: 150.00,
         measurement: 'meter',
         time_goal: 30.00,
-        rest: 90.00,
+        rest: 60.00,
         quantity: 1,
         description: 'Slow build up. Try to reach 60% speed by the finish line'
       },
