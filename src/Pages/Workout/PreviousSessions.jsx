@@ -23,7 +23,7 @@ const PreviousSessions = ({ selectedWorkout, setActiveTab }) => {
 
   return (
     <>
-      <div class="button" tabindex={0} onClick={clearHistory}>
+      <div className='button' tabIndex={0} onClick={clearHistory}>
         Clear History
       </div>
 

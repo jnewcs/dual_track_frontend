@@ -1,7 +1,7 @@
 import React from 'react';
 import Segment from './Segment';
 
-const LiveSegmentView = ({ segments, segmentsLength, segmentIdentifier, segmentData, showStopwatch, toggleStopwatch }) => {
+const LiveSegmentView = ({ segments, segmentsLength, segmentIdentifier, ...props }) => {
   if (!segmentsLength) return null;
 
   const activeSegment = segments.find(s => s.identifier === segmentIdentifier);
@@ -14,9 +14,7 @@ const LiveSegmentView = ({ segments, segmentsLength, segmentIdentifier, segmentD
       segmentsLength={segmentsLength}
       segmentIdentifier={segmentIdentifier}
       workoutStarted={true}
-      segmentData={segmentData}
-      showStopwatch={showStopwatch}
-      toggleStopwatch={toggleStopwatch}
+      {...props}
     />
   );
 }

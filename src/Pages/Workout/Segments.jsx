@@ -2,6 +2,7 @@ import React from 'react';
 import Show from '../../Components/Show';
 import { useAuthState } from '../../Context';
 import LiveSegmentView from './LiveSegmentView';
+import { isLastSegment } from './SegmentUtils';
 import StaticSegment from './StaticSegment';
 
 const Segments = ({ selectedWorkout, segmentIdentifier, segmentData, showStopwatch, toggleStopwatch, ...props }) => {
@@ -24,7 +25,7 @@ const Segments = ({ selectedWorkout, segmentIdentifier, segmentData, showStopwat
       <>
         <Show condition={myResultsIn && allResultsIn}>
           <div className='button is-primary mt-2 mb-1' tabIndex={0} onClick={props.onNextClick}>
-            Next Segment
+            {isLastSegment(segmentIdentifier, segments) ? 'Conclude Workout' : 'Next Segment'}
           </div>
         </Show>
 
@@ -35,6 +36,7 @@ const Segments = ({ selectedWorkout, segmentIdentifier, segmentData, showStopwat
           segmentData={segmentData}
           showStopwatch={showStopwatch}
           toggleStopwatch={toggleStopwatch}
+          allResultsIn={allResultsIn}
         />
       </>
     );

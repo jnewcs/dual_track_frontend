@@ -6,7 +6,7 @@ import { generateUUID } from '../../Config/utils';
 import { useAuthDispatch, useAuthState } from '../../Context';
 import { getWorkout } from '../../Context/actions';
 import PreviousSessions from './PreviousSessions';
-import { getRelevantSegmentData, saveRelevantSegmentData } from './SegmentUtils';
+import { getFromLocalStorage, getRelevantSegmentData, saveRelevantSegmentData } from './SegmentUtils';
 import WorkoutDetail from './WorkoutDetail';
 
 const Workout = ({ match }) => {
@@ -15,15 +15,15 @@ const Workout = ({ match }) => {
   const dispatch = useAuthDispatch();
   const [activeTab, setActiveTab] = useState('current');
 
-  const sessionFromLS = localStorage.getItem('liveSessionIdentifier') || null;
-  const identifierFromLS = localStorage.getItem('liveWorkoutIdentifier') || null;
+  const sessionFromLS = getFromLocalStorage('liveSessionIdentifier', 'string');
+  const identifierFromLS = getFromLocalStorage('liveWorkoutIdentifier', 'string');
   const workoutStartedInitial = !!sessionFromLS && identifier === identifierFromLS;
 
   const [workoutStarted, setWorkoutStatus] = useState(workoutStartedInitial);
   const sessionIdenitiferInitial = workoutStartedInitial ? sessionFromLS : null;
   const [liveSessionIdentifier, setSessionIdentifier] = useState(sessionIdenitiferInitial);
 
-  const segmentIdentifierFromLS = localStorage.getItem('liveSegmentIdentifier') || null;
+  const segmentIdentifierFromLS = getFromLocalStorage('liveSegmentIdentifier', 'string');
   const [segmentIdentifier, setSegmentIdentifier] = useState(segmentIdentifierFromLS);
 
   const defaultSegmentData = getRelevantSegmentData(identifier, liveSessionIdentifier, segmentIdentifier);

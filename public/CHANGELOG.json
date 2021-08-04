@@ -10,5 +10,8 @@
     },
     "0.4.0": {
       "description": "Clearing history for a session and trying to prettify"
+    },
+    "0.4.1": {
+      "description": "Conclude a workout easier plus spacing fixes"
     }
 }

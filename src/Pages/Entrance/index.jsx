@@ -43,7 +43,7 @@ const Entrance = ({ history }) => {
   };
 
   return (
-    <div className='columns is-centered'>
+    <div className='columns is-centered ml-5 mr-5'>
       <div className='column is-half'>
         {errorMessage && <p className='notification is-danger'>{errorMessage}</p>}
 

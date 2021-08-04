@@ -1,3 +1,14 @@
+export const getFromLocalStorage = (key, type = 'string') => {
+  if (type === 'object') {
+    const item = localStorage.getItem(key) || '{}';
+    return JSON.parse(item);
+  }
+
+  const item = localStorage.getItem(key);
+  if (!item || item === 'null') return null;
+  return item;
+};
+
 export const grabSegmentNotificationClass = (finishTime, timeGoal) => {
   const finishTimeInSeconds = finishTime / 1000.0;
   const difference = timeGoal - finishTimeInSeconds;
@@ -8,13 +19,11 @@ export const grabSegmentNotificationClass = (finishTime, timeGoal) => {
 };
 
 export const getPreviousWorkoutData = (identifier) => {
-  const segmentDataFromLS = localStorage.getItem(`liveSegmentData-${identifier}`) || "{}";
-  return JSON.parse(segmentDataFromLS);
+  return getFromLocalStorage(`liveSegmentData-${identifier}`, 'object');
 }
 
 export const getRelevantSegmentData = (identifier, sessionIdentifier, segmentIdentifier) => {
-  const segmentDataFromLS = localStorage.getItem(`liveSegmentData-${identifier}`) || "{}";
-  const parsedSegmentData = JSON.parse(segmentDataFromLS);
+  const parsedSegmentData = getFromLocalStorage(`liveSegmentData-${identifier}`, 'object');
   const relevantSession = parsedSegmentData[sessionIdentifier];
   if (!relevantSession) return {};
 
@@ -22,8 +31,7 @@ export const getRelevantSegmentData = (identifier, sessionIdentifier, segmentIde
 }
 
 export const saveRelevantSegmentData = (identifier, sessionIdentifier, segmentIdentifier, segmentData) => {
-  const saved = localStorage.getItem(`liveSegmentData-${identifier}`) || "{}";
-  const savedIdentifierData = JSON.parse(saved);
+  const savedIdentifierData = getFromLocalStorage(`liveSegmentData-${identifier}`, 'object');
   const savedSessionData = savedIdentifierData[sessionIdentifier] || {};
   const newSessionData = {
     ...savedSessionData,
@@ -39,4 +47,11 @@ export const saveRelevantSegmentData = (identifier, sessionIdentifier, segmentId
 
 export const removeWorkoutHistory = (identifier) => {
   localStorage.removeItem(`liveSegmentData-${identifier}`);
+}
+
+export const isLastSegment = (segmentIdentifier, segments) => {
+  if (!segmentIdentifier || !segments) return false;
+
+  const index = segments.findIndex((seg) => seg.identifier === segmentIdentifier);
+  return index === (segments.length - 1);
 }

@@ -4,6 +4,7 @@ import Loader from '../../Components/Loader';
 import Show from '../../Components/Show';
 import { useAuthDispatch, useAuthState } from '../../Context';
 import { getWorkouts } from '../../Context/actions';
+import { getFromLocalStorage } from '../Workout/SegmentUtils';
 
 const Workouts = () => {
   const { workouts, loading } = useAuthState();
@@ -13,7 +14,8 @@ const Workouts = () => {
   }, [dispatch]);
 
   const showWorkouts = !loading && workouts && !!workouts.length;
-  const identifierFromLS = localStorage.getItem('liveWorkoutIdentifier') || null;
+  const identifierFromLS = getFromLocalStorage('liveWorkoutIdentifier', 'string');
+
   return (
     <div className='ml-5 mr-5'>
       <h1 className='is-size-2 mb-5'>

@@ -5,7 +5,7 @@ import SegmentActions from './SegmentActions';
 import SegmentDataTable from './SegmentDataTable';
 import SegmentRest from './SegmentRest';
 
-const Segment = ({ segment, segmentsLength, showStopwatch, toggleStopwatch, segmentData, index, workoutStarted, segmentIdentifier }) => {
+const Segment = ({ segment, segmentsLength, showStopwatch, toggleStopwatch, segmentData, index, workoutStarted, segmentIdentifier, allResultsIn }) => {
   const [showRestTimer, toggleRestTimer] = useState(false);
   const [restFinished, toggleRestFinished] = useState(false);
   const { email } = useAuthState();
@@ -65,11 +65,12 @@ const Segment = ({ segment, segmentsLength, showStopwatch, toggleStopwatch, segm
 
             <SegmentDataTable segmentData={segmentData} timeGoal={segment.time_goal} />
 
-            <hr />
-
-            <p>
-              {segment.description}
-            </p>
+            <Show condition={!allResultsIn}>
+              <hr />
+              <p>
+                {segment.description}
+              </p>
+            </Show>
           </div>
         </div>
       </div>
