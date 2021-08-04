@@ -38,7 +38,7 @@ serve -s build
 To test our chat functionality locally, we need to run our Rails backend (https://github.com/jnewcs/dual_track) server locally on port 4000:
 
 ```
-bundle exec rails server:4000
+bundle exec rails server --port=4000
 ```
 
 We have to do this because are using [Pusher JS](https://github.com/pusher/pusher-js) to create websockets. To maintain security, we are using private channels which require a server (https://github.com/jnewcs/dual_track) to authorize the initial websocket connection.
