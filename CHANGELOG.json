@@ -7,5 +7,8 @@
     },
     "0.3.0": {
       "description": "Saving data to localstorage :) Getting closer to 1.0.0 release"
+    },
+    "0.4.0": {
+      "description": "Clearing history for a session and trying to prettify"
     }
 }
