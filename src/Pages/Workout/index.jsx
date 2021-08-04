@@ -85,7 +85,7 @@ const Workout = ({ match }) => {
   }, [identifier, dispatch]);
 
   if (loading) {
-    return <Loader />;
+    return <Loader spaceTop='mt-5' />;
   } else if (!selectedWorkout || !Object.keys(selectedWorkout).length) {
     return (
       <div className='has-text-centered'>
@@ -97,16 +97,16 @@ const Workout = ({ match }) => {
 
   return (
     <>
-      <nav className='breadcrumb mb-1' aria-label='breadcrumbs'>
-        <ul>
-          <li>
-            <NavLink to='/workouts' className=''>Workouts</NavLink>
-          </li>
-          <li className='is-active'>
-            <div className='ml-3'>{selectedWorkout.name}</div>
-          </li>
-        </ul>
-      </nav>
+      <div className='pattern-cross-dots-xl is-flex is-align-items-center is-justify-content-center neg-ml-5 neg-mr-5 border-bottom-primary-1 is-flex-direction-column'>
+        <div className='tag is-medium mt-2 mb-2'>
+          {selectedWorkout.name}
+        </div>
+        <Show condition={workoutStarted}>
+          <div className='tag is-small is-primary mb-2' key={liveSessionIdentifier}>
+            Active
+          </div>
+        </Show>
+      </div>
 
       <Show condition={!workoutStarted}>
         <div className='tabs is-medium'>
@@ -127,27 +127,24 @@ const Workout = ({ match }) => {
           </ul>
         </div>
       </Show>
-      <Show condition={workoutStarted}>
-        <div className='is-size-4 mb-2' key={liveSessionIdentifier}>
-          Workout is Live!
-        </div>
-      </Show>
 
-      {activeTab === 'current' && (
-        <WorkoutDetail
-          selectedWorkout={selectedWorkout}
-          workoutStarted={workoutStarted}
-          startWorkout={startWorkout}
-          mirrorWorkout={mirrorWorkout}
-          segmentIdentifier={segmentIdentifier}
-          segmentData={segmentData}
-          mirrorSegmentData={mirrorSegmentData}
-          mirrorNextSegment={mirrorNextSegment}
-          email={email}
-        />
-      )}
+      <div className='ml-5 mr-5 mt-2'>
+        {activeTab === 'current' && (
+          <WorkoutDetail
+            selectedWorkout={selectedWorkout}
+            workoutStarted={workoutStarted}
+            startWorkout={startWorkout}
+            mirrorWorkout={mirrorWorkout}
+            segmentIdentifier={segmentIdentifier}
+            segmentData={segmentData}
+            mirrorSegmentData={mirrorSegmentData}
+            mirrorNextSegment={mirrorNextSegment}
+            email={email}
+          />
+        )}
 
-      {activeTab === 'previous' && <PreviousSessions selectedWorkout={selectedWorkout} />}
+        {activeTab === 'previous' && <PreviousSessions selectedWorkout={selectedWorkout} setActiveTab={setActiveTab} />}
+      </div>
     </>
   );
 }

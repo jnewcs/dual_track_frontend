@@ -37,6 +37,14 @@ html, body {
   height: 3.5em;
 }
 
+.neg-mr-5 {
+  margin-right: -1.5rem;
+}
+
+.neg-ml-5 {
+  margin-left: -1.5rem;
+}
+
 @keyframes spinner {
   to {transform: rotate(360deg);}
 }

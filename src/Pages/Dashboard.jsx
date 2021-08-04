@@ -6,8 +6,8 @@ const Dashboard = ({ _history }) => {
   const { email } = useAuthState();
 
   return (
-    <div>
-      <div className='' >
+    <div className='ml-5 mr-5'>
+      <div>
         <h1 className='is-size-2 mb-5'>
           My Dashboard
         </h1>

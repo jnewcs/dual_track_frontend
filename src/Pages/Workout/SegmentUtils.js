@@ -36,3 +36,7 @@ export const saveRelevantSegmentData = (identifier, sessionIdentifier, segmentId
   });
   localStorage.setItem(`liveSegmentData-${identifier}`, jsonString);
 }
+
+export const removeWorkoutHistory = (identifier) => {
+  localStorage.removeItem(`liveSegmentData-${identifier}`);
+}

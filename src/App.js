@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import './App.scss';
 import './Styles/General.css';
 import './Styles/MobileGeneral.css';
+import './Styles/Pattern.css';
 import { Switch } from 'react-router-dom';
 import { addPwaUpdateListener } from 'pwa-helper-components';
 
@@ -25,7 +26,7 @@ function App() {
         <DesktopNav />
         <NotificationContainer />
 
-        <div className='container is-widescreen p-5'>
+        <div className='container is-widescreen pb-5'>
           <Suspense fallback={<Loader />}>
             <Switch>
                 {routes.map((route, index) => (

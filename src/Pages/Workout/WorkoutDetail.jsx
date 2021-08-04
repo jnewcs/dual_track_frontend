@@ -157,15 +157,17 @@ class WorkoutDetail extends Component {
 
           <LockScreen />
           <FullScreen />
+        </div>
+
+        <Show condition={Object.values(this.state.members).length > 1}>
           <ChatBubble
             channel={this.channel}
             setChatHistory={this.setChatHistory}
             setUnreadStatus={this.setUnreadStatus}
             {...this.state}
           />
-        </div>
-
-        <ChatMembers members={this.state.members} />
+          <ChatMembers members={this.state.members} />
+        </Show>
 
         <Segments
           selectedWorkout={this.props.selectedWorkout}

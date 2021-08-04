@@ -15,45 +15,43 @@ const Workouts = () => {
   const showWorkouts = !loading && workouts && !!workouts.length;
   const identifierFromLS = localStorage.getItem('liveWorkoutIdentifier') || null;
   return (
-    <div>
-      <div className='' >
-        <h1 className='is-size-2 mb-5'>
-          My Workouts
-        </h1>
+    <div className='ml-5 mr-5'>
+      <h1 className='is-size-2 mb-5'>
+        My Workouts
+      </h1>
 
-        {loading && <Loader />}
+      {loading && <Loader />}
 
-        {showWorkouts && (
-          <div className='columns'>
-            {workouts.map((workout) => (
-              <div className='column is-one-third' key={workout.identifier}>
-                <div className='card'>
-                  <div className='card-content'>
-                    <div className='content'>
-                      <NavLink to={`/workouts/${workout.identifier}`}>
-                        {workout.name}
-                      </NavLink>
+      {showWorkouts && (
+        <div className='columns'>
+          {workouts.map((workout) => (
+            <div className='column is-one-third' key={workout.identifier}>
+              <div className='card'>
+                <div className='card-content'>
+                  <div className='content'>
+                    <NavLink to={`/workouts/${workout.identifier}`}>
+                      {workout.name}
+                    </NavLink>
 
-                      <Show condition={identifierFromLS === workout.identifier}>
-                        <br />
-                        <div className='tag is-primary mt-2'>
-                          Active Workout
-                        </div>
-                      </Show>
+                    <Show condition={identifierFromLS === workout.identifier}>
+                      <br />
+                      <div className='tag is-primary mt-2'>
+                        Active Workout
+                      </div>
+                    </Show>
 
-                      <hr />
+                    <hr />
 
-                      <p>
-                        {workout.description}
-                      </p>
-                    </div>
+                    <p>
+                      {workout.description}
+                    </p>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

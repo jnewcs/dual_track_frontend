@@ -5,7 +5,7 @@ import LogoutButton from '../../Components/LogoutButton';
 
 const Settings = () => {
   return (
-    <>
+    <div className='ml-5 mr-5'>
       <h1 className='is-size-2 mb-5'>My Settings</h1>
 
       <LogoutButton buttonClass='button' />
@@ -50,7 +50,7 @@ const Settings = () => {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
 
