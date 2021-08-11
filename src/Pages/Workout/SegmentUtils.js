@@ -55,3 +55,8 @@ export const isLastSegment = (segmentIdentifier, segments) => {
   const index = segments.findIndex((seg) => seg.identifier === segmentIdentifier);
   return index === (segments.length - 1);
 }
+
+export const grabGradientClass = (index) => {
+  const options = ['gradient-blue', 'gradient-orange', 'gradient-purple', 'gradient-light-green', 'gradient-pink'];
+  return options[options.length % (index + 1)];
+}

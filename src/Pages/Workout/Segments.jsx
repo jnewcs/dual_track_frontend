@@ -18,7 +18,13 @@ const Segments = ({ selectedWorkout, segmentIdentifier, segmentData, showStopwat
   const segments = selectedWorkout.segments;
   const segmentsLength = segments.length;
   const myResultsIn = !!segmentData[email];
-  const allResultsIn = Object.keys(segmentData).length === Object.keys(props.members).length;
+  const numberOfParticipants = Object.keys(props.members).length;
+  let allResultsIn = false;
+  if (numberOfParticipants === 0) {
+    allResultsIn = myResultsIn;
+  } else {
+    allResultsIn = Object.keys(segmentData).length === Object.keys(props.members).length;
+  }
 
   if (segmentIdentifier) {
     return (

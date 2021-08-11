@@ -4,7 +4,6 @@ import LockScreen from './LockScreen';
 import FullScreen from './FullScreen';
 import ChatBubble from './ChatBubble';
 import Segments from './Segments';
-import ChatMembers from './ChatMembers';
 import Show from '../../Components/Show';
 
 class WorkoutDetail extends Component {
@@ -157,17 +156,16 @@ class WorkoutDetail extends Component {
 
           <LockScreen />
           <FullScreen />
-        </div>
 
-        <Show condition={Object.values(this.state.members).length > 1}>
-          <ChatBubble
-            channel={this.channel}
-            setChatHistory={this.setChatHistory}
-            setUnreadStatus={this.setUnreadStatus}
-            {...this.state}
-          />
-          <ChatMembers members={this.state.members} />
-        </Show>
+          <Show condition={Object.values(this.state.members).length > 1}>
+            <ChatBubble
+              channel={this.channel}
+              setChatHistory={this.setChatHistory}
+              setUnreadStatus={this.setUnreadStatus}
+              {...this.state}
+            />
+          </Show>
+        </div>
 
         <Segments
           selectedWorkout={this.props.selectedWorkout}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MessageCircle } from 'react-feather';
 import { useAuthState } from '../../Context';
 import ChatInterface from './ChatInterface';
 
@@ -69,8 +70,7 @@ const ChatBubble = ({ showChat, channel, chatHistory, setChatHistory, unreadMess
         disabled={Object.values(members).length < 2}
         onKeyUp={(e) => e.key === 'Enter' && openChat()}
       >
-        Workout Chat
-        {unreadMessage && <div className='dot ml-1 has-background-primary'></div>}
+        <MessageCircle fill={unreadMessage ? '#00BAF0' : 'white'} color='black' />
       </button>
 
       <ChatInterface

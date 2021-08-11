@@ -43,11 +43,13 @@ const Segment = ({ segment, segmentsLength, showStopwatch, toggleStopwatch, segm
         <div className='card-content pt-1'>
           <div className='content'>
             <div className='columns mt-1 is-flex'>
-              <div className='column is-half'>
-                <b className='is-size-5'>{segment.display_length} Goal</b>
-                <br/>
-                {segment.time_goal} seconds
-              </div>
+              <Show condition={!showRestTimer}>
+                <div className='column is-half'>
+                  <b className='is-size-5'>{segment.display_length} Goal</b>
+                  <br/>
+                  {segment.time_goal} seconds
+                </div>
+              </Show>
 
               <div className='column is-half'>
                 <SegmentRest rest={segment.rest} showRestTimer={showRestTimer} onRestFinish={onRestFinish} restFinished={restFinished} />
@@ -65,7 +67,7 @@ const Segment = ({ segment, segmentsLength, showStopwatch, toggleStopwatch, segm
 
             <SegmentDataTable segmentData={segmentData} timeGoal={segment.time_goal} />
 
-            <Show condition={!allResultsIn}>
+            <Show condition={!showRestTimer}>
               <hr />
               <p>
                 {segment.description}

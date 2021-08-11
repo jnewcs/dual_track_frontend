@@ -29,21 +29,22 @@ const Workouts = () => {
           {workouts.map((workout) => (
             <div className='column is-one-third' key={workout.identifier}>
               <div className='card'>
-                <div className='card-content'>
-                  <div className='content'>
+                <div className={`card-image ${workout.gradientClass} p-2 is-flex is-flex-direction-column is-align-items-center is-justify-content-center`}>
+                  <div className='tag'>
                     <NavLink to={`/workouts/${workout.identifier}`}>
                       {workout.name}
                     </NavLink>
+                  </div>
 
-                    <Show condition={identifierFromLS === workout.identifier}>
-                      <br />
-                      <div className='tag is-primary mt-2'>
-                        Active Workout
-                      </div>
-                    </Show>
+                  <Show condition={identifierFromLS === workout.identifier}>
+                    <div className='tag is-primary mt-2'>
+                      Active Workout
+                    </div>
+                  </Show>
+                </div>
 
-                    <hr />
-
+                <div className='card-content'>
+                  <div className='content'>
                     <p>
                       {workout.description}
                     </p>

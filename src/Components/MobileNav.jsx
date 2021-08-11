@@ -8,7 +8,7 @@ const MobileNav = () => {
       <div className='pt-5 pb-5'></div>
       <br/>
 
-      <div className='is-hidden-desktop p-2 has-background-light' id='mobile-footer'>
+      <div className='is-hidden-desktop pt-2 pb-2 has-background-light' id='mobile-footer'>
         <div className='is-flex is-align-items-center is-justify-content-space-between pl-2 pr-3'>
           <NavLink to='/dashboard' className='icon p-2 has-text-black' activeClassName='has-text-primary'>
             <Home />

@@ -1,13 +1,17 @@
+import { grabGradientClass } from "../Pages/Workout/SegmentUtils";
+
 export const mockedWorkouts = [
   {
     identifier: process.env.REACT_APP_WORKOUT_UID,
     name: 'Track 150m Intervals',
-    description: '5 sets of 150m with 2 minute breaks'
+    description: '5 sets of 150m with 2 minute breaks',
+    gradientClass: grabGradientClass(0)
   },
   {
     identifier: '8935fr-1m32lk',
     name: '1 mile endurance',
-    description: 'Simple 1 mile run to gain endurance'
+    description: 'Simple 1 mile run to gain endurance',
+    gradientClass: grabGradientClass(1)
   },
 ];
 
@@ -37,12 +41,14 @@ export const mockedWorkoutsWithDetails = [
         quantity: 1,
         description: 'Try to reach 60% speed by the finish line'
       }
-    ]
+    ],
+    gradientClass: grabGradientClass(0)
   },
   {
     identifier: '8935fr-1m32lk',
     name: '1 mile endurance',
     description: 'Simple 1 mile run to gain endurance',
-    segments: []
+    segments: [],
+    gradientClass: grabGradientClass(1)
   },
 ];

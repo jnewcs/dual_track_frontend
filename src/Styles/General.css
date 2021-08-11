@@ -37,14 +37,6 @@ html, body {
   height: 3.5em;
 }
 
-.neg-mr-5 {
-  margin-right: -1.5rem;
-}
-
-.neg-ml-5 {
-  margin-left: -1.5rem;
-}
-
 @keyframes spinner {
   to {transform: rotate(360deg);}
 }
@@ -53,6 +45,31 @@ html, body {
   position: relative;
   width: 30px;
   height: 30px;
+}
+
+.gradient-blue {
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.gradient-orange {
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+}
+
+.gradient-purple {
+  background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+}
+
+.gradient-light-green {
+  background-color: #85FFBD;
+  background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+}
+
+.gradient-pink {
+  background-color: #FFDEE9;
+  background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
 }
 
 .spinner:before {

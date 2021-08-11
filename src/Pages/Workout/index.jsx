@@ -97,7 +97,7 @@ const Workout = ({ match }) => {
 
   return (
     <>
-      <div className='pattern-cross-dots-xl is-flex is-align-items-center is-justify-content-center neg-ml-5 neg-mr-5 border-bottom-primary-1 is-flex-direction-column'>
+      <div className={`is-flex is-align-items-center ${selectedWorkout.gradientClass} is-justify-content-center border-bottom-primary-1 is-flex-direction-column`}>
         <div className='tag is-medium mt-2 mb-2'>
           {selectedWorkout.name}
         </div>
